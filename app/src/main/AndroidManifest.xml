@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Base.Theme.Tamantic"
+        tools:targetApi="31" >
+        <activity
+            android:name=".view.activity.search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.search.SeacrhActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.payment.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryAlatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryMediaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryPottedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryPohonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryBungaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryHiasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryOutdoorActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBT91TSoB8-7W8jnan6x6U7xvpeBsvhZ3Y" />
+
+        <activity
+            android:name=".view.activity.maps.LocationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".view.activity.chatting.SelectChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.shopping.DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.cart.CartListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.shopping.ShoppingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.category.DetailCategoryIndoorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.plant.AddNewPlantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.plant.DetailMyPlantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.scan.DetailScanActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.activity.chatting.ChatlogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.starter.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.starter.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.starter.introduction.IntroductionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.starter.splash.SplashScreen"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

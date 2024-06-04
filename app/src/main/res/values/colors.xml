@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="gray_bg">#F3F3F3</color>
+    <color name="gray">#F5F5F5</color>
+    <color name="medium_gray">#767676</color>
+    <color name="gray_old">#F2F2F2</color>
+    <color name="gray_text">#9E9E9E</color>
+    <color name="gray_85">#858585</color>
+
+    <color name="black_main">#2C2C2C</color>
+    <color name="green">#114232</color>
+    <color name="orange">#FFAB30</color>
+    <color name="blue">#2A629A</color>
+
+    //main
+    <color name="green_50">#e2e8e6</color>
+    <color name="green_100">#b8c6c2</color>
+    <color name="green_200">#7ABA78</color>
+    <color name="green_300">#587b70</color>
+    <color name="green_400">#355e51</color>
+    <color name="green_500">#114232</color>
+    <color name="green_600">#0f3c2d</color>
+    <color name="green_700">#0c3326</color>
+    <color name="green_800">#0a2b1f</color>
+    <color name="green_900">#051d13</color>
+    <color name="green_A100">#5cffad</color>
+    <color name="green_A200">#29ff93</color>
+    <color name="green_A400">#00f579</color>
+    <color name="green_A700">#00db6c</color>
+
+    //decor
+    <color name="orange_50">#fff5e6</color>
+    <color name="orange_100">#ffe6c1</color>
+    <color name="orange_200">#ffd598</color>
+    <color name="orange_300">#ffc46e</color>
+    <color name="orange_400">#ffb84f</color>
+    <color name="orange_500">#ffab30</color>
+    <color name="orange_600">#ffa42b</color>
+    <color name="orange_700">#ff9a24</color>
+    <color name="orange_800">#ff911e</color>
+    <color name="orange_900">#ff8013</color>
+    <color name="orange_A100">#ffffff</color>
+    <color name="orange_A200">#fffcfa</color>
+    <color name="orange_A400">#ffdfc7</color>
+    <color name="orange_A700">#ffd0ad</color>
+
+    //gray
+    <color name="mgray_50">#f0f0f0</color>
+    <color name="mgray_100">#d9d9d9</color>
+    <color name="mgray_200">#c0c0c0</color>
+    <color name="mgray_300">#a6a6a6</color>
+    <color name="mgray_400">#939393</color>
+    <color name="mgray_500">#808080</color>
+    <color name="mgray_600">#787878</color>
+    <color name="mgray_700">#6d6d6d</color>
+    <color name="mgray_800">#636363</color>
+    <color name="mgray_900">#505050</color>
+    <color name="mgray_A100">#f8c0c0</color>
+    <color name="mgray_A200">#f39292</color>
+    <color name="mgray_A400">#ff5353</color>
+    <color name="mgray_A700">#ff3a3a</color>
+
+    //coklat
+    <color name="coklat_300">#6d4b41</color>
+    <color name="coklat_200">#865b50</color>
+
+    //red
+    <color name="mred_50">#f7e4e7</color>
+    <color name="mred_100">#eabcc2</color>
+    <color name="mred_200">#dd8f99</color>
+    <color name="mred_300">#cf6270</color>
+    <color name="mred_400">#c44152</color>
+    <color name="mred_500">#ba1f33</color>
+    <color name="mred_600">#b31b2e</color>
+    <color name="mred_700">#ab1727</color>
+    <color name="mred_800">#a31220</color>
+    <color name="mred_900">#940a14</color>
+    <color name="mred_A100">#ffc2c5</color>
+    <color name="mred_A200">#ff8f95</color>
+    <color name="mred_A400">#ff5c64</color>
+    <color name="mred_A700">#ff424c</color>
+
+</resources>

@@ -1,0 +1,99 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TestDark" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <style name="SCREEN">
+        <item name="android:background">@color/black_main</item>
+    </style>
+
+    <style name="SCREEN_CARD">
+        <item name="android:background">@color/mgray_900</item>
+    </style>
+
+    <style name="SCREEN_CARD_TINT_TOKO">
+        <item name="android:backgroundTint">@color/mgray_900</item>
+    </style>
+
+    <style name="SCREEN_CARD_TINT">
+        <item name="android:backgroundTint">@color/medium_gray</item>
+    </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TEXT_GREEN">
+        <item name="android:textColor">@color/white </item>
+    </style>
+
+    <style name="TEXT_GREY">
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+
+    <style name="TEXT_GREY_WHITE">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TEXT_BLUE">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="INPUT_TEXT">
+        <item name="backgroundTint">@color/medium_gray</item>
+    </style>
+
+    <style name="INPUT_TEXT_WHITE">
+        <item name="android:drawableTint">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="backgroundTint">@color/medium_gray</item>
+    </style>
+
+    <style name="IMAGE">
+        <item name="tint">@color/green_400</item>
+    </style>
+
+    <style name="IMAGE_SCREEN">
+        <item name="backgroundTint">@color/black_main</item>
+    </style>
+
+    <style name="IMAGE_GRAY">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="IMAGE_GREEN">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="IMAGE_GREEN_A700">
+        <item name="drawableTint">@color/medium_gray</item>
+    </style>
+
+    <style name="IMAGE_BLACK">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="BUTTON">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BUTTON_WHITE">
+        <item name="drawableTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/medium_gray</item>
+    </style>
+
+    <style name="BUTTON_PROFILE">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/black_main</item>
+        <item name="background">@drawable/background_button_field_dark</item>
+    </style>
+
+    <style name="BOTTOM_NAV">
+        <item name="backgroundTint">@color/black_main</item>
+        <item name="itemIconTint">@drawable/background_nav_item_dark</item>
+    </style>
+
+</resources>

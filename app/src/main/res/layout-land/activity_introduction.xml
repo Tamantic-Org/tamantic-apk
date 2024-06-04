@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN"
+    tools:context=".view.starter.introduction.IntroductionActivity">
+
+    <ImageView
+        style="@style/IMAGE"
+        android:id="@+id/shadow_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:contentDescription="@string/introduction_1"
+        android:src="@drawable/logo_tamanticgray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/introduction_2"
+        tools:alpha="100" />
+
+
+    <ImageView
+        android:id="@+id/introduction_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:contentDescription="@string/desc_introduction_images"
+        android:src="@drawable/introduction"
+        app:layout_constraintEnd_toStartOf="@id/introduction_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/introduction_1"
+        tools:alpha="100" />
+
+    <TextView
+        style="@style/TEXT"
+        android:id="@+id/introduction_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/introduction_1"
+
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/introduction_img"
+        app:layout_constraintStart_toStartOf="@id/introduction_img"
+        app:layout_constraintTop_toBottomOf="@id/introduction_img"
+        app:layout_constraintBottom_toTopOf="@id/introduction_2"
+        tools:alpha="100" />
+
+    <TextView
+        style="@style/TEXT"
+        android:id="@+id/introduction_2"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="300dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:fontFamily="@font/poppins_reguler"
+        android:text="@string/introduction_2"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/introduction_1"
+        app:layout_constraintStart_toStartOf="@id/introduction_1"
+        app:layout_constraintTop_toBottomOf="@id/introduction_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:alpha="100" />
+
+    <Button
+        android:id="@+id/introduction_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="@string/introduction_button"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toEndOf="@id/introduction_1"
+        tools:alpha="100"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteY="200dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

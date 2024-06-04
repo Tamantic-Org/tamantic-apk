@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN"
+    tools:context=".view.starter.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/logo_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:alpha="0"
+        android:contentDescription="@string/desc_logo_tamantic"
+        android:src="@drawable/logo_tamantic"
+        app:layout_constraintBottom_toTopOf="@id/const_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:alpha="100" />
+
+    <TextView
+        style="@style/TEXT_GREEN"
+        android:id="@+id/title_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/welcome_back"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_login"
+        tools:alpha="100" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/action_login_btn"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_login"
+        app:layout_constraintWidth_max="300dp">
+
+        <TextView
+            style="@style/TEXT_GREY"
+            android:id="@+id/text_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/text_email"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/const_content"
+            app:layout_constraintTop_toTopOf="@id/const_content"
+            tools:alpha="100" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="@id/const_content"
+            app:layout_constraintStart_toStartOf="@id/const_content"
+            app:layout_constraintTop_toBottomOf="@id/text_email"
+            app:startIconDrawable="@drawable/ic_email"
+            tools:alpha="100">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/INPUT_TEXT"
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:background="@drawable/background_text_field"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="@id/const_content"
+                app:layout_constraintStart_toStartOf="@id/const_content"
+                app:layout_constraintTop_toBottomOf="@id/text_email"
+                tools:alpha="100"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/TEXT_GREY"
+            android:id="@+id/text_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingTop="10dp"
+            android:text="@string/password"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/const_content"
+            app:layout_constraintTop_toBottomOf="@id/email_layout"
+            tools:alpha="100" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
+            style="@style/IMAGE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            app:endIconMode="password_toggle"
+            app:layout_constraintEnd_toEndOf="@id/const_content"
+            app:layout_constraintStart_toStartOf="@id/const_content"
+            app:layout_constraintTop_toBottomOf="@id/text_password"
+            app:startIconDrawable="@drawable/ic_lock"
+            tools:alpha="100">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/INPUT_TEXT"
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0"
+                android:background="@drawable/background_text_field"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@id/const_content"
+                app:layout_constraintStart_toStartOf="@id/const_content"
+                app:layout_constraintTop_toBottomOf="@id/text_password"
+                tools:alpha="100"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/TEXT_GREY"
+            android:id="@+id/action_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingTop="10dp"
+            android:text="@string/forgot_password"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/const_content"
+            app:layout_constraintTop_toBottomOf="@id/password_layout"
+            tools:alpha="100" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        style="@style/BUTTON"
+        android:id="@+id/action_login_btn"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:alpha="0"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingVertical="10dp"
+        android:shadowRadius="1.5"
+        android:text="@string/login"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/login_with_google"
+        tools:alpha="100"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/BUTTON_WHITE"
+        android:id="@+id/login_with_google"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/background_search"
+        android:drawableStart="@drawable/ic_google"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingHorizontal="20dp"
+        android:text="@string/login_with_google"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_action" />
+
+    <LinearLayout
+        android:id="@+id/bottom_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:alpha="100">
+
+        <TextView
+            style="@style/TEXT"
+            android:id="@+id/dont_have_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/dont_have_account"
+            android:textSize="12sp" />
+
+        <TextView
+            style="@style/TEXT_BLUE"
+            android:id="@+id/action_to_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/register"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

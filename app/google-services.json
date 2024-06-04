@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585485533950",
+    "project_id": "tamantic-c9aa1",
+    "storage_bucket": "tamantic-c9aa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585485533950:android:cfd264511ca89aa5de1baf",
+        "android_client_info": {
+          "package_name": "com.dicoding.tamantic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_oMycfExBt6DhdV3mTMpYLl5iKblG80U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

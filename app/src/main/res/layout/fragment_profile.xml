@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/green"
+    tools:context=".view.fragment.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.025" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.975" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <ImageView
+            style="@style/IMAGE_SCREEN"
+            android:layout_width="match_parent"
+            android:layout_height="640dp"
+            android:background="@drawable/background_profile"
+            android:contentDescription="@string/my_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline_profile" />
+
+        <ImageView
+            android:id="@+id/action_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/my_profile"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toTopOf="@id/guideline_top"
+            app:tint="@color/white" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/photo_profile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/my_profile"
+            android:src="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_profile"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toTopOf="@id/guideline_profile"
+            app:shapeAppearanceOverlay="@style/CircularImageView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintEnd_toEndOf="@id/photo_profile"
+            app:layout_constraintStart_toStartOf="@id/photo_profile"
+            app:layout_constraintTop_toBottomOf="@id/photo_profile">
+
+            <TextView
+                style="@style/TEXT"
+                android:id="@+id/name_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/TEXT_GREY"
+                android:id="@+id/email_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/name_profile"
+                app:layout_constraintStart_toStartOf="@id/name_profile"
+                app:layout_constraintTop_toBottomOf="@id/name_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/list_option"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/logout_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_profile">
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BUTTON_PROFILE"
+                android:id="@+id/my_profiles"
+                android:contentDescription="@string/desc_my_profiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_person"
+                android:drawableEnd="@drawable/ic_next"
+                android:drawablePadding="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="15dp"
+                android:text="@string/my_profile_list"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BUTTON_PROFILE"
+                android:id="@+id/message_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_chat"
+                android:drawableEnd="@drawable/ic_next"
+                android:drawablePadding="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="15dp"
+                android:text="@string/messages"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BUTTON_PROFILE"
+                android:id="@+id/location_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_location"
+                android:drawableEnd="@drawable/ic_next"
+                android:drawablePadding="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="15dp"
+                android:text="@string/location"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BUTTON_PROFILE"
+                android:id="@+id/settings_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_person"
+                android:drawableEnd="@drawable/ic_next"
+                android:drawablePadding="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="15dp"
+                android:text="@string/settings"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left">
+
+
+            <TextView
+                style="@style/TEXT"
+                android:id="@+id/action_to_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/logout"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_logout"
+                app:layout_constraintEnd_toEndOf="@id/photo_profile"
+                app:layout_constraintStart_toStartOf="@id/photo_profile"
+                app:layout_constraintTop_toBottomOf="@id/photo_profile" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
