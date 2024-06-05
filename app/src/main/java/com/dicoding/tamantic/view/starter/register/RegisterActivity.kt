@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -70,7 +71,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var alertDialog: AlertDialog
-    private var selectImage: Uri? = null
 
 //    private val viewModel by viewModels<RegisterViewModel> {
 //        ViewModelFactory.getInstance(this)
@@ -79,14 +79,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.register_activity)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         database = FirebaseDatabase.getInstance()
 
@@ -94,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
 
         playAnimation(viewModel)
         setupView()
-        setupAction() // register manual
+        setupAction()
 
     }
 
@@ -106,6 +99,7 @@ class RegisterActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             image = data?.data
             binding.selectUserImage?.setImageURI(image)
+            binding.icGaleri?.visibility = View.GONE
         }
     }
 
@@ -150,10 +144,10 @@ class RegisterActivity : AppCompatActivity() {
         image: Uri?
     ) {
         if (image == null) return
-
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val storageReference = FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}.jpg")
+                val storageReference =
+                    FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}.jpg")
                 storageReference.putFile(image).await()
                 val imageUrl = storageReference.downloadUrl.await().toString()
 

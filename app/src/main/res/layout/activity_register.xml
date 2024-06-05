@@ -81,9 +81,10 @@
             />
 
         <ImageView
+            android:id="@+id/ic_galeri"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_gallery"
             android:contentDescription="image_select_photo_profile"
             app:tint="@color/gray_85"
             app:layout_constraintStart_toStartOf="@id/select_userImage"

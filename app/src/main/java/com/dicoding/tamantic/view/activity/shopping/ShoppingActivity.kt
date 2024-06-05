@@ -1,8 +1,11 @@
 package com.dicoding.tamantic.view.activity.shopping
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +69,8 @@ class ShoppingActivity : AppCompatActivity() {
         recylerView = binding.rvMarket
         recylerView.layoutManager = LinearLayoutManager(this)
         recylerView.adapter = adapter
+
+        setupView()
     }
 
     private fun getProductSelected(data: DataItem?) {
@@ -92,6 +97,19 @@ class ShoppingActivity : AppCompatActivity() {
             intent.putExtra("PRODUCT_KEY", data)
             startActivity(intent)
         }
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
 

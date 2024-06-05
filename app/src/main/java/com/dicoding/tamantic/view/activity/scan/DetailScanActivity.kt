@@ -2,8 +2,11 @@ package com.dicoding.tamantic.view.activity.scan
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,6 +32,11 @@ class DetailScanActivity : AppCompatActivity() {
 
         showImage(currentImageUri)
 
+        setupAction()
+        setupView()
+    }
+
+    private fun setupAction() {
         binding.actionToEdit.setOnClickListener { startUCrop(currentImageUri!!) }
         binding.actionToGallery.setOnClickListener { gallery() }
         binding.actionBack.setOnClickListener { onBackPressed() }
@@ -72,5 +80,18 @@ class DetailScanActivity : AppCompatActivity() {
             val cropError = UCrop.getError(data!!)
             Toast.makeText(this, "failed to crop image $cropError", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }

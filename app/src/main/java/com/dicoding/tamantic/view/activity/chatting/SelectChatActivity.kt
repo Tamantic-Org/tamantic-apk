@@ -1,6 +1,9 @@
 package com.dicoding.tamantic.view.activity.chatting
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +36,7 @@ class SelectChatActivity : AppCompatActivity() {
         recylerView.adapter = userAdapter
 
         fecthUser()
+        setupView()
     }
 
     private fun fecthUser() {
@@ -54,5 +58,18 @@ class SelectChatActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }

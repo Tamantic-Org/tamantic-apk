@@ -1,7 +1,10 @@
 package com.dicoding.tamantic.view.activity.chatting
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -73,6 +76,8 @@ class ChatlogActivity : AppCompatActivity() {
         toLastMsg.setValue(msg)
 
         binding.inputMessage.setText("")
+
+        setupView()
     }
 
     private fun getProfile(name: String, image: String) {
@@ -116,5 +121,18 @@ class ChatlogActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }

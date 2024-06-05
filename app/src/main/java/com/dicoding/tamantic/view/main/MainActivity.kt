@@ -2,9 +2,12 @@ package com.dicoding.tamantic.view.main
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -47,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         checkAuthAndLogin()
 
         val navController = findNavController(R.id.hostFragment)
-
         binding.navigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -60,17 +62,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.scanImage.setOnClickListener { camera() }
 
-    }
+        setupView()
 
-//    private fun loginValidation(){
-//        val uid = FirebaseAuth.getInstance().uid
-//        if(uid == null){
-//
-//            val intent = Intent(this,LoginActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent)
-//        }
-//    }
+    }
 
     private fun camera() {
         currentImageUri = getImageUri(this)
@@ -122,6 +116,19 @@ class MainActivity : AppCompatActivity() {
     private fun loginValidation(): Boolean {
         val uid = FirebaseAuth.getInstance().uid
         return uid != null
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
 

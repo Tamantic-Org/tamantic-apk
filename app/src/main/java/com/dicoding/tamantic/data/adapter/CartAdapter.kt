@@ -14,6 +14,8 @@ import com.dicoding.tamantic.data.model.ProductModel
 import com.dicoding.tamantic.view.activity.shopping.ShoppingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.NumberFormat
+import java.util.Locale
 
 class CartAdapter(
     private val productList: MutableList<ProductModel>,
@@ -64,7 +66,9 @@ class CartAdapter(
 
         holder.tvName.text = product.name
         holder.tvDesc.text = product.desc
-        holder.tvPrice.text = product.total.toString()
+
+        val formattedTotalPrice = NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(product.total)
+        holder.tvPrice.text = formattedTotalPrice
         holder.tvQuantity.text = quantity.toString()
 
         val imageUri = Uri.parse(product.imageUrl)
@@ -90,7 +94,8 @@ class CartAdapter(
 
     private fun updatePrice(holder: ViewHolder, product: ProductModel, quantity: Int) {
         val totalPrice = quantity * product.price
-        holder.tvPrice.text = totalPrice.toString()
+        val formattedTotalPrice = NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(totalPrice)
+        holder.tvPrice.text = formattedTotalPrice.toString()
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/cart/$fromId/${product.uid}")
         ref.child("total").setValue(totalPrice)

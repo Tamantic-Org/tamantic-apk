@@ -121,14 +121,6 @@
             app:layout_constraintTop_toBottomOf="@id/guideline_slogan"
             tools:ignore="RtlSymmetry" />
 
-        <com.google.android.material.search.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_anchor="@id/action_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/categories"
             android:layout_width="0dp"

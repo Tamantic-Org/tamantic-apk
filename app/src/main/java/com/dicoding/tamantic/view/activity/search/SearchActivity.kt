@@ -1,10 +1,13 @@
 package com.dicoding.tamantic.view.activity.search
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,8 +37,6 @@ class SearchActivity : AppCompatActivity() {
         binding.actionSearch.setText(name)
         binding.kamuMencari.text = "Kamu mencari : $name"
 
-        setupAction()
-
         adapter = SearchAdapter(listOf())
 
         searchViewModel.setProduct(name.toString())
@@ -58,6 +59,9 @@ class SearchActivity : AppCompatActivity() {
         recylerView = binding.rvMarket
         recylerView.layoutManager = LinearLayoutManager(this)
         recylerView.adapter = adapter
+
+        setupAction()
+        setupView()
     }
 
     private fun setupAction() {
@@ -84,5 +88,18 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }

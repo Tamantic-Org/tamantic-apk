@@ -1,9 +1,12 @@
 package com.dicoding.tamantic.view.activity.shopping
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -29,6 +32,8 @@ import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.NumberFormat
+import java.util.Locale
 
 class DetailProductActivity : AppCompatActivity() {
 
@@ -44,6 +49,7 @@ class DetailProductActivity : AppCompatActivity() {
         getProductSelected(data)
         setCategoryProduct(data)
         setupAction(data)
+        setupView()
     }
 
     private fun setCategoryProduct(data: DataItem?) {
@@ -90,7 +96,10 @@ class DetailProductActivity : AppCompatActivity() {
 
         Glide.with(ivImage).load(image).into(ivImage)
         tvName.text = name
-        tvPrice.text = "Rp " + price.toString()
+
+        val formattedTotalPrice = NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(price)
+        tvPrice.text = formattedTotalPrice
+
         tvLocation.text = location
         tvDesc.text = desc
     }
@@ -139,5 +148,18 @@ class DetailProductActivity : AppCompatActivity() {
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
         return (dp * density).toInt()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }
