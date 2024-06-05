@@ -34,6 +34,8 @@ import com.google.android.play.integrity.internal.s
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
+    //halaman home
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: ProductAdapter
     private lateinit var recylerView: RecyclerView
