@@ -115,6 +115,7 @@
             android:paddingStart="20dp"
             android:singleLine="true"
             android:textSize="16sp"
+            android:imeOptions="actionSearch"
             app:layout_constraintBottom_toTopOf="@id/categories"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"

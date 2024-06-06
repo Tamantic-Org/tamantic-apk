@@ -13,13 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.tamantic.R
+import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.databinding.ActivityIntroductionBinding
 import com.dicoding.tamantic.databinding.ActivityMainBinding
@@ -27,6 +31,7 @@ import com.dicoding.tamantic.view.activity.scan.DetailScanActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.starter.login.LoginActivity
 import com.dicoding.tamantic.view.utils.getImageUri
+import com.dicoding.tamantic.view.viewModel.ThemeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -35,6 +40,10 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
+    private val darkViewModel by viewModels<ThemeViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
@@ -57,6 +66,14 @@ class MainActivity : AppCompatActivity() {
                 binding.navigationView.visibility = View.GONE
             } else {
                 binding.navigationView.visibility = View.VISIBLE
+            }
+        }
+
+        darkViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
 

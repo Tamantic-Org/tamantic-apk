@@ -22,6 +22,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[USER_NAME] = user.name
             preferences[TOKEN_KEY] = user.uid
             preferences[IS_LOGIN_KEY] = true
+            preferences[THEME_KEY] ?: false
         }
     }
 
@@ -34,6 +35,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[IMAGE_KEY] ?: "",
                 preferences[TOKEN_KEY] ?: "",
                 preferences[IS_LOGIN_KEY] ?: false
+
             )
         }
     }
@@ -56,7 +58,26 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     suspend fun logout() {
         dataStore.edit { preferences ->
-            preferences.clear()
+            preferences.remove(EMAIL_KEY)
+            preferences.remove(USER_NAME)
+            preferences.remove(TOKEN_KEY)
+            preferences.remove(IS_LOGIN_KEY)
+            preferences.remove(UID_KEY)
+            preferences.remove(IMAGE_KEY)
+        }
+    }
+
+    private val THEME_KEY = booleanPreferencesKey("theme_setting")
+
+    fun getThemeSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[THEME_KEY] ?: false
+        }
+    }
+
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[THEME_KEY] = isDarkModeActive
         }
     }
 

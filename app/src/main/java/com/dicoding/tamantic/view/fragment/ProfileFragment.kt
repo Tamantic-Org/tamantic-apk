@@ -7,7 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -17,7 +22,10 @@ import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.databinding.FragmentProfileBinding
 import com.dicoding.tamantic.view.activity.maps.LocationActivity
+import com.dicoding.tamantic.view.main.MainViewModel
+import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.starter.login.LoginActivity
+import com.dicoding.tamantic.view.viewModel.ThemeViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -36,6 +44,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var binding:  FragmentProfileBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
+
+    private val viewModel by viewModels<ThemeViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,12 +77,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         getProfile()
 
         binding.logoutBtn.setOnClickListener{ logout() }
-        binding.messageProfile.setOnClickListener{
-//            findNavController().navigate(R.id.action_profileFragment_to_chatFragment)
-        }
         binding.locationProfile.setOnClickListener {
             val intent = Intent(this.context, LocationActivity::class.java)
             startActivity(intent)
+        }
+
+        val switchTheme = binding.switchTheme
+
+        viewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                switchTheme.isChecked = true
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                switchTheme.isChecked = false
+            }
+        }
+
+        switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            viewModel.saveThemeSetting(isChecked)
         }
     }
 
@@ -97,6 +123,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                     .into(binding.photoProfile)
 
+                showLoading(false)
+
             } else {
                 val ref = FirebaseDatabase.getInstance().getReference("/users/$id")
                 ref.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -118,6 +146,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                 })
             }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

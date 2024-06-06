@@ -12,8 +12,13 @@ import com.dicoding.tamantic.view.starter.login.LoginViewModel
 import com.dicoding.tamantic.view.viewModel.CategoryViewModel
 import com.dicoding.tamantic.view.viewModel.HomeViewModel
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
+import com.dicoding.tamantic.view.viewModel.ThemeViewModel
 
-class ViewModelFactory(private val repository: UserRepository, private val pref: UserPreference) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(
+    private val repository: UserRepository,
+    private val pref: UserPreference,
+    )
+    : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -33,6 +38,10 @@ class ViewModelFactory(private val repository: UserRepository, private val pref:
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository, pref) as T
             }
+            modelClass.isAssignableFrom(ThemeViewModel::class.java) -> {
+                ThemeViewModel(pref) as T
+            }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
