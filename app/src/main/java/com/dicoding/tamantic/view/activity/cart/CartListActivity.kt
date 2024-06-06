@@ -13,8 +13,10 @@ import com.dicoding.tamantic.data.adapter.CartAdapter
 import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.ProductModel
 import com.dicoding.tamantic.data.model.UserModel
+import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.databinding.ActivityCartListBinding
 import com.dicoding.tamantic.view.activity.payment.PaymentActivity
+import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot

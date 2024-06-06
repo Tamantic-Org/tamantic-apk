@@ -85,7 +85,6 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:contentDescription="@string/my_profile"
-            android:src="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/guideline_profile"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -102,8 +101,8 @@
             app:layout_constraintTop_toBottomOf="@id/photo_profile">
 
             <TextView
-                style="@style/TEXT"
                 android:id="@+id/name_profile"
+                style="@style/TEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
@@ -113,8 +112,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/TEXT_GREY"
                 android:id="@+id/email_profile"
+                style="@style/TEXT_GREY"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
@@ -127,88 +126,272 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/flow_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toTopOf="@id/list_option"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@id/info_profile">
+
+            <LinearLayout
+                android:id="@+id/dikemas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dikirim"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pesanan_dikemas"
+                    app:tint="@color/medium_gray" />
+
+                <TextView
+                    style="@style/TEXT_GREY_WHITE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_reguler"
+                    android:text="Dikemas"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dikirim"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/diterima"
+                app:layout_constraintStart_toEndOf="@id/dikemas"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pesanan_dikirim"
+                    app:tint="@color/medium_gray" />
+
+                <TextView
+                    style="@style/TEXT_GREY_WHITE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_reguler"
+                    android:text="Dikirim"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/diterima"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/dikirim"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pesanan_sampai" />
+
+                <TextView
+                    style="@style/TEXT_GREY_WHITE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/poppins_reguler"
+                    android:text="Dikirim"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/list_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingHorizontal="30dp"
             app:layout_constraintBottom_toTopOf="@id/logout_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_profile">
+            app:layout_constraintTop_toBottomOf="@id/flow_product">
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/BUTTON_PROFILE"
-                android:id="@+id/my_profiles"
-                android:contentDescription="@string/desc_my_profiles"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_person"
-                android:drawableEnd="@drawable/ic_next"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="15dp"
-                android:text="@string/my_profile_list"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:paddingHorizontal="20dp">
 
-                />
+                <TextView
+                    android:id="@+id/my_profiles"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/desc_my_profiles"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingVertical="15dp"
+                    android:text="@string/my_profile_list"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_person"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/action_next"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/BUTTON_PROFILE"
-                android:id="@+id/message_profile"
+                <ImageView
+                    android:id="@+id/action_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/medium_gray"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_chat"
-                android:drawableEnd="@drawable/ic_next"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="15dp"
-                android:text="@string/messages"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/message_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingVertical="15dp"
+                    android:text="@string/messages"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_chat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/action_next2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/action_next2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/medium_gray"/>
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/BUTTON_PROFILE"
-                android:id="@+id/location_profile"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_location"
-                android:drawableEnd="@drawable/ic_next"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="15dp"
-                android:text="@string/location"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:paddingHorizontal="20dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/BUTTON_PROFILE"
-                android:id="@+id/settings_profile"
+                <TextView
+                    android:id="@+id/location_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingVertical="15dp"
+                    android:text="@string/location"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_maps"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/action_next3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/action_next3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/medium_gray"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_person"
-                android:drawableEnd="@drawable/ic_next"
-                android:drawablePadding="20dp"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="15dp"
-                android:text="@string/settings"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:paddingHorizontal="20dp">
 
+                <TextView
+                    android:id="@+id/settings_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingVertical="15dp"
+                    android:text="@string/settings"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_settings"
+                    app:drawableTint="@color/medium_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/switch_theme"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/green_500"
+                    app:trackTint="@color/medium_gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/medium_gray"/>
 
         </LinearLayout>
 
@@ -224,8 +407,8 @@
 
 
             <TextView
-                style="@style/TEXT"
                 android:id="@+id/action_to_logout"
+                style="@style/TEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -240,6 +423,18 @@
                 app:layout_constraintTop_toBottomOf="@id/photo_profile" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/list_option"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
