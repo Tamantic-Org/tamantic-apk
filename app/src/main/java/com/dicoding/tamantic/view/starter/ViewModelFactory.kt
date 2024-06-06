@@ -9,6 +9,7 @@ import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.data.repo.UserRepository
 import com.dicoding.tamantic.view.main.MainViewModel
 import com.dicoding.tamantic.view.starter.login.LoginViewModel
+import com.dicoding.tamantic.view.starter.register.RegisterViewModel
 import com.dicoding.tamantic.view.viewModel.CategoryViewModel
 import com.dicoding.tamantic.view.viewModel.HomeViewModel
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
@@ -28,6 +29,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+               RegisterViewModel(repository) as T
             }
             modelClass.isAssignableFrom(MarketViewModel::class.java) -> {
                 MarketViewModel(repository) as T

@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.loginError.observe(this) { errorMessage ->
-            if (errorMessage.isNullOrEmpty()) {
+            if (!errorMessage.isNullOrEmpty()) {
                 showLoginErrorDialog(errorMessage)
                 Log.d("Error", errorMessage)
             }
