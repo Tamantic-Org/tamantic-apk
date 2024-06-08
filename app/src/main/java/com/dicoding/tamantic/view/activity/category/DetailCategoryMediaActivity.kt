@@ -1,13 +1,17 @@
 package com.dicoding.tamantic.view.activity.category
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +27,7 @@ import com.dicoding.tamantic.view.viewModel.CategoryViewModel
 
 class DetailCategoryMediaActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityDetailCategoryMediaBinding
+    private lateinit var binding: ActivityDetailCategoryMediaBinding
     private val categoryViewModel by viewModels<CategoryViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -49,7 +53,7 @@ class DetailCategoryMediaActivity : AppCompatActivity() {
 
         adapter = MarketAdapter(listOf())
 
-        categoryViewModel.productData.observe(this){
+        categoryViewModel.productData.observe(this) {
             adapter.dataProduct = it!!
             adapter.notifyDataSetChanged()
         }
@@ -64,13 +68,25 @@ class DetailCategoryMediaActivity : AppCompatActivity() {
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+            window.setDecorFitsSystemWindows(true)
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
-        supportActionBar?.hide()
+
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val statusBarColor = when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> ContextCompat.getColor(this, android.R.color.black)
+            Configuration.UI_MODE_NIGHT_NO -> ContextCompat.getColor(this, R.color.white)
+            else -> ContextCompat.getColor(this, R.color.white)
+        }
+
+        window.statusBarColor = statusBarColor
     }
 }

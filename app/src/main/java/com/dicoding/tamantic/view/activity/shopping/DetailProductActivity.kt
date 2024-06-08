@@ -1,11 +1,14 @@
 package com.dicoding.tamantic.view.activity.shopping
 
+import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -27,7 +30,9 @@ import com.dicoding.tamantic.data.adapter.MarketAdapter
 import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.ProductModel
 import com.dicoding.tamantic.data.response.DataItem
+import com.dicoding.tamantic.data.response.DataItemUser
 import com.dicoding.tamantic.databinding.ActivityDetailProductBinding
+import com.dicoding.tamantic.view.activity.chatting.ChatlogActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -107,9 +112,19 @@ class DetailProductActivity : AppCompatActivity() {
     private fun setupAction(data: DataItem?) {
         binding.actionToBack.setOnClickListener { onBackPressed() }
         binding.actionToCart.setOnClickListener { addToCart(data) }
+        binding.chatOwner.setOnClickListener {
+
+            val name = data?.owner
+            val image = data?.imageMarket
+            val intent = Intent(this,ChatlogActivity::class.java)
+            intent.putExtra("OWNER_NAME", name)
+            intent.putExtra("OWNER_IMAGE", image)
+            startActivity(intent)
+        }
     }
 
     private fun addToCart(data: DataItem?) {
+        val status = "dikeranjang"
         val name = data?.name.toString()
         val desc = data?.description.toString()
         val owner = data?.owner.toString()
@@ -136,7 +151,7 @@ class DetailProductActivity : AppCompatActivity() {
                 total = quantity * price
             }
 
-            val product = ProductModel(ref.key!!, name, desc, owner, image, quantity, price, total)
+            val product = ProductModel(ref.key!!, name, desc, owner, image, status, quantity, price, total)
             ref.setValue(product).addOnSuccessListener {
                 Toast.makeText(this, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
             }
@@ -153,7 +168,11 @@ class DetailProductActivity : AppCompatActivity() {
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+            window.setDecorFitsSystemWindows(true)
         } else {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -161,5 +180,6 @@ class DetailProductActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+        window.statusBarColor = Color.TRANSPARENT
     }
 }

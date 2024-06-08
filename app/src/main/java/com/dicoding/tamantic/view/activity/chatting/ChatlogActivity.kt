@@ -1,14 +1,19 @@
 package com.dicoding.tamantic.view.activity.chatting
 
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.ChatAdapter
 import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.UserModel
@@ -38,6 +43,7 @@ class ChatlogActivity : AppCompatActivity() {
 
         getProfile(name, image)
         getMessage(uid)
+        setupView()
 
         recylerVIew = binding.rvChatlog
         val layoutManager = LinearLayoutManager(this).apply {
@@ -81,8 +87,19 @@ class ChatlogActivity : AppCompatActivity() {
     }
 
     private fun getProfile(name: String, image: String) {
-        binding.nameChatlog.text = name
-        Glide.with(binding.imageChatlog).load(image).into(binding.imageChatlog)
+        //chatowner
+        val dataName = intent.getStringExtra("OWNER_NAME")
+        val dataImage = intent.getStringExtra("OWNER_IMAGE")
+
+        Log.d("NAME", name)
+
+        if(name == "null"){
+            binding.nameChatlog.text = dataName
+            Glide.with(binding.imageChatlog).load(dataImage).into(binding.imageChatlog)
+        }else{
+            binding.nameChatlog.text = name
+            Glide.with(binding.imageChatlog).load(image).into(binding.imageChatlog)
+        }
     }
 
     private fun getMessage(uid: String) {
@@ -126,13 +143,16 @@ class ChatlogActivity : AppCompatActivity() {
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.setDecorFitsSystemWindows(true)
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
         supportActionBar?.hide()
+
+        val statusBarColor = ContextCompat.getColor(this, R.color.green_500)
+        window.statusBarColor = statusBarColor
     }
 }

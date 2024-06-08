@@ -28,9 +28,6 @@
         android:name="com.dicoding.tamantic.view.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
     </fragment>
 
 </navigation>

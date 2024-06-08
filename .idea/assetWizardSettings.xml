@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_maps" />
-                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\IconSVG\maps.svg" />
+                            <entry key="outputName" value="ic_delete" />
+                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\delete.svg" />
                           </map>
                         </option>
                       </PersistentState>

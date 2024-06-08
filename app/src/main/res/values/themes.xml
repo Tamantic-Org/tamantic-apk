@@ -41,7 +41,7 @@
     </style>
 
     <style name="INPUT_TEXT">
-        <item name="backgroundTint">@color/gray_old</item>
+        <item name="android:background">@drawable/background_text_field</item>
     </style>
 
     <style name="INPUT_TEXT_WHITE">
@@ -70,12 +70,20 @@
         <item name="backgroundTint">@color/green_A700</item>
     </style>
 
+    <style name="IMAGE_FLOW_PRODUCT">
+        <item name="android:background">@drawable/background_rounded_view</item>
+    </style>
+
     <style name="IMAGE_GRAY">
         <item name="backgroundTint">@color/gray_old</item>
     </style>
 
+    <style name="IMAGE_DEFAULT"></style>
+
+
     <style name="BUTTON">
         <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/green_500</item>
     </style>
 
     <style name="BUTTON_WHITE">
@@ -90,8 +98,11 @@
     </style>
 
     <style name="BOTTOM_NAV">
-        <item name="backgroundTint">@color/white</item>
+        <item name="itemBackground">@drawable/background_item_navbar</item>
+        <item name="android:background">@color/white</item>
         <item name="itemIconTint">@drawable/background_nav_item</item>
     </style>
+
+
 
 </resources>

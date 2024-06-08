@@ -107,4 +107,8 @@ dependencies {
 
     //datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //payment
+    implementation("com.midtrans:uikit:2.0.0-SANDBOX")
+    implementation("com.midtrans:uikit:2.0.0")
 }

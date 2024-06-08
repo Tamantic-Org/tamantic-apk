@@ -1,13 +1,17 @@
 package com.dicoding.tamantic.view.activity.chatting
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.UserAdapter
 import com.dicoding.tamantic.data.model.UserModel
 import com.dicoding.tamantic.databinding.ActivitySelectChatBinding
@@ -63,13 +67,16 @@ class SelectChatActivity : AppCompatActivity() {
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.setDecorFitsSystemWindows(true)
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
         supportActionBar?.hide()
+
+        val statusBarColor = ContextCompat.getColor(this, R.color.green_500)
+        window.statusBarColor = statusBarColor
     }
 }

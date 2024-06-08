@@ -51,6 +51,6 @@ interface ApiService {
     @GET("/products/search/{name}")
     fun getUser(
         @Path("name") owner: String
-    ): Call<UserResponse>
+    ): Call<ProductsResponse>
 
 }

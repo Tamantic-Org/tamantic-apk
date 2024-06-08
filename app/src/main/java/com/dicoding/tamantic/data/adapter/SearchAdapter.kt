@@ -16,7 +16,7 @@ import com.dicoding.tamantic.view.activity.shopping.DetailProductActivity
 import java.text.NumberFormat
 import java.util.Locale
 
-class SearchAdapter(var dataProduct: List<DataItemUser>) : RecyclerView.Adapter<SearchAdapter
+class SearchAdapter(var dataProduct: List<DataItem>) : RecyclerView.Adapter<SearchAdapter
 .MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {

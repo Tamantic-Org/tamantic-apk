@@ -1,17 +1,22 @@
 package com.dicoding.tamantic.view.activity.scan
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import com.dicoding.tamantic.R
 import com.dicoding.tamantic.databinding.ActivityDetailScanBinding
 import com.yalantis.ucrop.UCrop
 import java.io.File
@@ -31,7 +36,6 @@ class DetailScanActivity : AppCompatActivity() {
         }
 
         showImage(currentImageUri)
-
         setupAction()
         setupView()
     }
@@ -85,13 +89,25 @@ class DetailScanActivity : AppCompatActivity() {
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+            window.setDecorFitsSystemWindows(true)
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
-        supportActionBar?.hide()
+
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val statusBarColor = when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> ContextCompat.getColor(this, android.R.color.black)
+            Configuration.UI_MODE_NIGHT_NO -> ContextCompat.getColor(this, R.color.white)
+            else -> ContextCompat.getColor(this, R.color.white)
+        }
+
+        window.statusBarColor = Color.TRANSPARENT
     }
 }

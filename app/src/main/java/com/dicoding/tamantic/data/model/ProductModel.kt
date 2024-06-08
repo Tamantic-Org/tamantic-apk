@@ -10,12 +10,14 @@ data class ProductModel(
     val desc : String,
     val owner: String,
     val imageUrl: String,
+    var status: String,
     var quantity: Int,
     val price: Int,
     val total: Int
 ) : Parcelable {
     constructor() :
             this(
+                "",
                 "",
                 "",
                 "",

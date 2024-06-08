@@ -25,7 +25,7 @@
 
     <item
         android:id="@+id/profileFragment"
-        android:title="@string/plant"
+        android:title="@string/profile"
         android:icon="@drawable/ic_person"
         />
 
