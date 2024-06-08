@@ -74,6 +74,10 @@
         <item name="tint">@color/white</item>
     </style>
 
+    <style name="IMAGE_FLOW_PRODUCT">
+        <item name="android:background">@drawable/background_rounded_view_nigth</item>
+    </style>
+
     <style name="BUTTON">
         <item name="android:textColor">@color/white</item>
     </style>
@@ -91,7 +95,8 @@
     </style>
 
     <style name="BOTTOM_NAV">
-        <item name="backgroundTint">@color/black_main</item>
+        <item name="itemBackground">@drawable/background_item_navbar</item>
+        <item name="android:background">@color/black_main</item>
         <item name="itemIconTint">@drawable/background_nav_item_dark</item>
     </style>
 

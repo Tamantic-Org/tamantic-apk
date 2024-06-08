@@ -70,6 +70,10 @@
         <item name="backgroundTint">@color/green_A700</item>
     </style>
 
+    <style name="IMAGE_FLOW_PRODUCT">
+        <item name="android:background">@drawable/background_rounded_view</item>
+    </style>
+
     <style name="IMAGE_GRAY">
         <item name="backgroundTint">@color/gray_old</item>
     </style>
@@ -90,8 +94,11 @@
     </style>
 
     <style name="BOTTOM_NAV">
-        <item name="backgroundTint">@color/white</item>
+        <item name="itemBackground">@drawable/background_item_navbar</item>
+        <item name="android:background">@color/white</item>
         <item name="itemIconTint">@drawable/background_nav_item</item>
     </style>
+
+
 
 </resources>

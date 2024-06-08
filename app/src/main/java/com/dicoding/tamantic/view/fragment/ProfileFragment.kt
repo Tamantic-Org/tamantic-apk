@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -21,8 +19,9 @@ import com.dicoding.tamantic.data.model.UserModel
 import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.databinding.FragmentProfileBinding
+import com.dicoding.tamantic.view.activity.alamat.AlamatActivity
+import com.dicoding.tamantic.view.activity.flowProduct.PackedActivity
 import com.dicoding.tamantic.view.activity.maps.LocationActivity
-import com.dicoding.tamantic.view.main.MainViewModel
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.starter.login.LoginActivity
 import com.dicoding.tamantic.view.viewModel.ThemeViewModel
@@ -61,10 +60,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.actionBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
         mAuth = FirebaseAuth.getInstance()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -75,13 +70,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         getProfile()
-
-        binding.logoutBtn.setOnClickListener{ logout() }
-        binding.locationProfile.setOnClickListener {
-            val intent = Intent(this.context, LocationActivity::class.java)
-            startActivity(intent)
-        }
-
         val switchTheme = binding.switchTheme
 
         viewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive: Boolean ->
@@ -94,9 +82,35 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
+        setupAction()
+
         switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             viewModel.saveThemeSetting(isChecked)
         }
+    }
+
+    private fun setupAction() {
+
+        binding.logoutBtn.setOnClickListener{ logout() }
+
+        binding.locationProfile.setOnClickListener {
+            val intent = Intent(this.context, LocationActivity::class.java)
+            startActivity(intent)
+        }
+        binding.actionBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.alamatProfile.setOnClickListener {
+            val intent = Intent(this.context, AlamatActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.dikemas.setOnClickListener{
+            val intent = Intent(this.context, PackedActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     @SuppressLint("CheckResult")
@@ -123,8 +137,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                     .into(binding.photoProfile)
 
-                showLoading(false)
-
             } else {
                 val ref = FirebaseDatabase.getInstance().getReference("/users/$id")
                 ref.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -147,6 +159,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 })
             }
         }
+        showLoading(false)
     }
 
     private fun showLoading(isLoading: Boolean) {
