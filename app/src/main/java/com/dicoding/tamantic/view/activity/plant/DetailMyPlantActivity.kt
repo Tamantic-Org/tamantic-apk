@@ -36,6 +36,8 @@ class DetailMyPlantActivity : AppCompatActivity() {
         val image = intent.getStringExtra("IMAGE_PLANT").toString()
         val deskripsi = intent.getStringExtra("DESKRIPSI_PLANT").toString()
 
+        Log.d("DATA", image)
+
         setPlan(image, deskripsi)
         setupAction(image, deskripsi)
         setupView()
