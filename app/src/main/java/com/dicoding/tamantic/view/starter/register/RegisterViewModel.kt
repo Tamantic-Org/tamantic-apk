@@ -40,6 +40,7 @@ class RegisterViewModel(
             try {
                 val storageReference = FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}.jpg")
                 storageReference.putFile(image).await()
+
                 val imageUrl = storageReference.downloadUrl.await().toString()
 
                 val response = ApiConfig.getApiService("").register(name, email, phone, password, imageUrl)

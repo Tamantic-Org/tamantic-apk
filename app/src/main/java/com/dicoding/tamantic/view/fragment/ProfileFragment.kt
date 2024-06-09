@@ -2,12 +2,16 @@ package com.dicoding.tamantic.view.fragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CompoundButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -90,7 +94,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun setupAction() {
 
-        binding.logoutBtn.setOnClickListener{ logout() }
+        binding.logoutBtn.setOnClickListener{ popupAlert() }
 
         binding.locationProfile.setOnClickListener {
             val intent = Intent(this.context, LocationActivity::class.java)
@@ -159,6 +163,33 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 })
             }
         }
+        showLoading(false)
+    }
+
+    private fun popupAlert() {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert_2, null)
+        val dialog = android.app.Dialog(requireActivity())
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        val btn_no = dialogBinding.findViewById<Button>(R.id.alert_no)
+        btn_no.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            logout()
+        }
+
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+
+        title.text = "Keluar"
+        message.text = "Apa kamu yakin ingin keluar sekarang?"
+
         showLoading(false)
     }
 

@@ -17,8 +17,11 @@ import androidx.core.content.ContextCompat
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.databinding.ActivityAddNewPlantBinding
 import com.google.android.play.integrity.internal.c
+import com.google.firebase.storage.FirebaseStorage
 import com.yalantis.ucrop.UCrop
+import kotlinx.coroutines.tasks.await
 import java.io.File
+import java.util.UUID
 
 class AddNewPlantActivity : AppCompatActivity() {
 
@@ -45,11 +48,33 @@ class AddNewPlantActivity : AppCompatActivity() {
         binding.actionBack.setOnClickListener { onBackPressed() }
 
         binding.actionSend.setOnClickListener {
-            val deskripsi = binding.inputDeskripsi.text.toString()
-            val intent = Intent(this, DetailMyPlantActivity::class.java)
-            intent.putExtra("IMAGE_PLANT", currentImageUri.toString())
-            intent.putExtra("DESKRIPSI_PLANT", deskripsi)
-            startActivity(intent)
+            val storageReference =
+                FirebaseStorage.getInstance().reference.child("images-plant/${UUID.randomUUID()}.jpg")
+            storageReference.putFile(currentImageUri!!).addOnSuccessListener {
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    val imageUrl = uri.toString()
+                    val deskripsi = binding.inputDeskripsi.text.toString()
+
+                    val intent = Intent(this, DetailMyPlantActivity::class.java)
+                    intent.putExtra("IMAGE_PLANT", imageUrl)
+                    intent.putExtra("DESKRIPSI_PLANT", deskripsi)
+                    startActivity(intent)
+
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Failed to get download URL", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
+            }
+
+//            val imageUrl = storageReference.downloadUrl.toString()
+//            val deskripsi = binding.inputDeskripsi.text.toString()
+//
+//            val intent = Intent(this, DetailMyPlantActivity::class.java)
+//            intent.putExtra("IMAGE_PLANT", imageUrl)
+//            intent.putExtra("DESKRIPSI_PLANT", deskripsi)
+//            startActivity(intent)
         }
     }
 

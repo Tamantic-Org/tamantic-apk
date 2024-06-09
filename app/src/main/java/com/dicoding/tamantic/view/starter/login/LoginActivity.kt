@@ -4,17 +4,23 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -45,29 +51,23 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var alertDialog: AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_activity)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
+        showLoading(false)
         viewModel.loginSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
-                showLoginSuccessDialog()
+                showLoading(true)
+                popupAlertSuccess()
             }
         }
 
         viewModel.loginError.observe(this) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
-                showLoginErrorDialog(errorMessage)
-                Log.d("Error", errorMessage)
+                showLoading(true)
+                popupAlertFailed(errorMessage)
             }
         }
 
@@ -88,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginWithGoogle.setOnClickListener { googleSignIn() } // login with account google
 
     }
+
 
     private fun googleSignIn() {
         val signInClient = googleSignInClient.signInIntent
@@ -110,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
         //jika account google berhasil
         if (account !== null) {
+            showLoading(true)
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             auth.signInWithCredential(credential).addOnCompleteListener {
                 if (task.isSuccessful) {
@@ -126,18 +128,14 @@ class LoginActivity : AppCompatActivity() {
                         database.reference.child("users").child(uid).setValue(user)
                             .addOnCompleteListener { databaseTask ->
                                 if (databaseTask.isSuccessful) {
-                                    showLoginSuccessDialog()
+                                    popupAlertSuccess()
                                 } else {
-                                    Toast.makeText(
-                                        this,
-                                        "Failed to save user data: ${databaseTask.exception}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    popupAlertFailed(databaseTask.exception.toString())
                                 }
                             }
                     }
                 } else {
-                    Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                    popupAlertFailed(task.exception.toString())
                 }
             }
 
@@ -148,6 +146,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.actionLoginBtn.setOnClickListener {
+            showLoading(true)
             val email = binding.emailInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
@@ -171,7 +170,7 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.login(email, password)
 
             } else {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                popupAlertFailed("Masukan data terlebih dahulu!")
             }
 
         }
@@ -207,28 +206,55 @@ class LoginActivity : AppCompatActivity() {
         window.statusBarColor = statusBarColor
     }
 
-    private fun showLoginSuccessDialog() {
-        alertDialog = AlertDialog.Builder(this)
-            .setTitle("Login Success!")
-            .setMessage(resources.getString(R.string.login_success))
-            .setPositiveButton("Yes") { _, _ ->
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }.create()
+    private fun popupAlertSuccess() {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
 
-        alertDialog.show()
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+        val name = FirebaseAuth.getInstance().currentUser?.displayName
+        title.text = "Berhasil"
+        message.text = "Selamat datang kembali $name carilah tanaman kesukaan mu sekarang 😁"
+
+        showLoading(false)
     }
 
-    private fun showLoginErrorDialog(errorMessage: String) {
-        runOnUiThread {
-            val errorDialog = AlertDialog.Builder(this)
-                .setTitle("Login Error")
-                .setMessage(errorMessage)
-                .setPositiveButton("OK", null)
-                .create()
+    private fun popupAlertFailed(errorMessage: String) {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(true)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
 
-            errorDialog.show()
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+        title.text = "Gagal"
+        message.text = errorMessage
+
+        showLoading(false)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar?.visibility = View.VISIBLE
+        } else {
+            binding.progressBar?.visibility = View.GONE
         }
     }
 
