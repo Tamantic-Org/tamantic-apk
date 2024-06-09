@@ -146,6 +146,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                             binding.emailProfile.text = it?.email
                             Glide.with(binding.photoProfile)
                                 .load(it?.imageUrl)
+                                .fitCenter()
                                 .error(R.drawable.profile_default)
                                 .into(binding.photoProfile)
                         }
