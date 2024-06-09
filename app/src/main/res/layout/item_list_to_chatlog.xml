@@ -9,10 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="5dp"
-        style="@style/SCREEN"
+        style="@style/SCREEN_CARD"
         android:layout_gravity="bottom">
 
         <LinearLayout
+            android:id="@+id/chat_container_to"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -34,6 +35,16 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/chat_time_to"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="14:44"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/chat_container_to"
+            app:layout_constraintBottom_toBottomOf="@id/chat_container_to"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
