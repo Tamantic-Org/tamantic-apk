@@ -23,8 +23,8 @@ import com.google.firebase.database.FirebaseDatabase
 class ChatFragment : Fragment(R.layout.fragment_chat) {
 
     private lateinit var binding: FragmentChatBinding
-    private lateinit var recylerView: RecyclerView
-    private lateinit var lastChatAdapater: LastChatAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var lastChatAdapter: LastChatAdapter
     private var userList = mutableListOf<Chat>()
     private var lastMessageMap = HashMap<String, Chat>()
 
@@ -40,25 +40,25 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recylerView = binding.rvListChat
-        recylerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView = binding.rvListChat
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        lastChatAdapater = LastChatAdapter(userList)
-        recylerView.adapter = lastChatAdapater
-
-        lastMessage()
+        lastChatAdapter = LastChatAdapter(userList)
+        recyclerView.adapter = lastChatAdapter
 
         binding.actionToSelectUser.setOnClickListener{
             val intent = Intent(this.context, SelectChatActivity::class.java)
             startActivity(intent)
         }
+        progressBar(true)
+        lastMessage()
     }
 
     private fun refreshRv(){
         userList.clear()
         lastMessageMap.values.forEach{
             userList.add(it)
-            lastChatAdapater.notifyDataSetChanged()
+            lastChatAdapter.notifyDataSetChanged()
         }
     }
 
@@ -71,6 +71,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                 val user = snapshot.getValue(Chat::class.java) ?: return
                 lastMessageMap[snapshot.key!!] = user
                 refreshRv()
+                progressBar(false)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -85,13 +86,20 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                progressBar(false)
             }
-
         })
+    }
+
+    private fun progressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

@@ -30,7 +30,6 @@ class ChatAdapter(private val messages: MutableList<Chat>, private val currentus
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messages[position]
         if (holder is ToViewHolder) {
@@ -41,7 +40,6 @@ class ChatAdapter(private val messages: MutableList<Chat>, private val currentus
     }
 
     inner class FromViewHolder(private val binding: ItemListFromChatlogBinding) : RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(chat: Chat) {
             binding.messageChatFrom.text = chat.text
             binding.chatTimeFrom.text = formatTimestamp(chat.timeStamp)
@@ -49,7 +47,6 @@ class ChatAdapter(private val messages: MutableList<Chat>, private val currentus
     }
 
     inner class ToViewHolder(private val binding: ItemListToChatlogBinding) : RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(chat: Chat) {
             binding.messageChatTo.text = chat.text
             binding.chatTimeTo.text = formatTimestamp(chat.timeStamp)
@@ -57,7 +54,6 @@ class ChatAdapter(private val messages: MutableList<Chat>, private val currentus
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun formatTimestamp(timestamp: Long): String {
         val instant = Instant.ofEpochSecond(timestamp)
         val formatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.systemDefault())

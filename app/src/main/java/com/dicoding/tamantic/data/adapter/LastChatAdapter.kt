@@ -39,7 +39,6 @@ class LastChatAdapter(private val userList: MutableList<Chat>): RecyclerView.Ada
 
     override fun getItemCount(): Int = userList.size
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
         holder.tvText.text = user.text
@@ -70,7 +69,6 @@ class LastChatAdapter(private val userList: MutableList<Chat>): RecyclerView.Ada
         })
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun formatTimestamp(timestamp: Long): String {
         val instant = Instant.ofEpochSecond(timestamp)
         val formatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.systemDefault())
