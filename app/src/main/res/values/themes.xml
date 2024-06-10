@@ -74,6 +74,11 @@
         <item name="android:background">@drawable/background_rounded_view</item>
     </style>
 
+    <style name="IMAGE_SKOR_KEPERCAYAAN">
+        <item name="android:background">@drawable/background_rounded_view</item>
+        <item name="android:backgroundTint">@color/green_500</item>
+    </style>
+
     <style name="IMAGE_GRAY">
         <item name="backgroundTint">@color/gray_old</item>
     </style>

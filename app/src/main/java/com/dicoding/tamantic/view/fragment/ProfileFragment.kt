@@ -203,8 +203,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun logout() {
         lifecycleScope.launch {
-            context?.let { UserPreference.getInstance(it.dataStore).logout() }
             mAuth.signOut()
+            context?.let { UserPreference.getInstance(it.dataStore).logout() }
             mGoogleSignInClient.signOut().addOnCompleteListener(requireActivity()) {
                 val intent = Intent(this@ProfileFragment.context, LoginActivity::class.java)
                 startActivity(intent)

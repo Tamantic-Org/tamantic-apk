@@ -3,6 +3,7 @@ package com.dicoding.tamantic.data.retrofit
 import com.dicoding.tamantic.data.response.LoginResponse
 import com.dicoding.tamantic.data.response.ProductsResponse
 import com.dicoding.tamantic.data.response.RegisterResponse
+import com.dicoding.tamantic.data.response.ScanResponse
 import com.dicoding.tamantic.data.response.UserResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -52,5 +53,11 @@ interface ApiService {
     fun getUser(
         @Path("name") owner: String
     ): Call<ProductsResponse>
+
+    @Multipart
+    @POST("/predict")
+    fun getDataScan(
+        @Part file: MultipartBody.Part
+    ): Call<ScanResponse>
 
 }

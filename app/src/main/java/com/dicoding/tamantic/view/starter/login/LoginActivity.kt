@@ -122,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
                     val currentUser = auth.currentUser
                     currentUser?.let {
                         val uid = it.uid
-                        val user = UserModel(uid, name, email, imageUrl, "", true)
+                        val user = UserModel(uid, name, email, imageUrl, "" , true)
 
                         // simpan data user ke realtimedatabase
                         database.reference.child("users").child(uid).setValue(user)
@@ -156,10 +156,10 @@ class LoginActivity : AppCompatActivity() {
                 Firebase.auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
                     val currentUser = auth.currentUser
                     currentUser?.let {
-                        val name = it?.displayName.toString()
-                        val uid = it?.uid.toString()
-                        val image = it?.photoUrl.toString()
-                        val user = UserModel(uid, name, email, image, "", true)
+                        val name = it.displayName.toString()
+                        val uid = it.uid
+                        val image = it.photoUrl.toString()
+                        val user = UserModel(uid, name, email, image, "" , true)
                         database.reference.child("users").child(uid).setValue(user)
                             .addOnSuccessListener {
                             }
@@ -222,7 +222,7 @@ class LoginActivity : AppCompatActivity() {
         }
         val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
         val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
-        val name = FirebaseAuth.getInstance().currentUser?.displayName
+        val name = FirebaseAuth.getInstance().currentUser?.displayName ?: binding.emailInput.text
         title.text = "Berhasil"
         message.text = "Selamat datang kembali $name carilah tanaman kesukaan mu sekarang 😁"
 

@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ArrayAdapter
@@ -16,22 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.data.adapter.CartAdapter
 import com.dicoding.tamantic.data.model.Alamat
-import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.ProductModel
-import com.dicoding.tamantic.data.model.UserModel
-import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.databinding.ActivityCartListBinding
 import com.dicoding.tamantic.view.activity.payment.PaymentActivity
-import com.dicoding.tamantic.view.starter.ViewModelFactory
+import com.dicoding.tamantic.view.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.midtrans.sdk.corekit.core.MidtransSDK
-import com.midtrans.sdk.corekit.core.TransactionRequest
-import com.midtrans.sdk.uikit.api.model.CustomerDetails
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -63,7 +56,15 @@ class CartListActivity : AppCompatActivity() {
 
         getCartProduct()
         getAddress()
+        setupAction()
         setupView()
+    }
+
+    private fun setupAction() {
+        binding.getOther.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getAddress() {
@@ -73,8 +74,6 @@ class CartListActivity : AppCompatActivity() {
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val alamat = snapshot.getValue(Alamat::class.java)
-                Log.d("alamat", alamat.toString())
-
                 val address = alamat?.address
                 address?.let { addresses.add(it) }
 

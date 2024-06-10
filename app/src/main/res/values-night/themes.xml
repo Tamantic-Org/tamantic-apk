@@ -82,6 +82,13 @@
         <item name="android:background">@drawable/background_rounded_view_nigth</item>
     </style>
 
+
+    <style name="IMAGE_SKOR_KEPERCAYAAN">
+        <item name="android:background">@drawable/background_rounded_view_nigth</item>
+    </style>
+
+
+
     <style name="BUTTON">
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/green_500</item>

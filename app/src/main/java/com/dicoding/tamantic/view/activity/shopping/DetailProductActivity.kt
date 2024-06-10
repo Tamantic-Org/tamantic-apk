@@ -2,6 +2,7 @@ package com.dicoding.tamantic.view.activity.shopping
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +11,9 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +36,7 @@ import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.data.response.DataItemUser
 import com.dicoding.tamantic.databinding.ActivityDetailProductBinding
 import com.dicoding.tamantic.view.activity.chatting.ChatlogActivity
+import com.dicoding.tamantic.view.main.MainActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -153,6 +157,7 @@ class DetailProductActivity : AppCompatActivity() {
 
             val product = ProductModel(ref.key!!, name, desc, owner, image, status, quantity, price, total)
             ref.setValue(product).addOnSuccessListener {
+                popupAlertSuccess("Berhasil ditambahkan ke keranjang")
                 Toast.makeText(this, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
             }
 
@@ -163,6 +168,24 @@ class DetailProductActivity : AppCompatActivity() {
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
         return (dp * density).toInt()
+    }
+
+    private fun popupAlertSuccess(msg: String) {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            dialog.dismiss()
+        }
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+        title.text = "Berhasil"
+        message.text = msg
     }
 
     private fun setupView() {
