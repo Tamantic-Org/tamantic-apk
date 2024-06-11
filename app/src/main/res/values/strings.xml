@@ -155,4 +155,6 @@
     <string name="desc_action_save">desc_action_save</string>
     <string name="nama_penyakit">Nama penyakit</string>
     <string name="no_message">No Message Yet</string>
+    <string name="no_address">No Address Yet</string>
+    <string name="no_product">No Product Yet</string>
 </resources>

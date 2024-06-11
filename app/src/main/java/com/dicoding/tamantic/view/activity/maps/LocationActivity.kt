@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +14,6 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +21,7 @@ import androidx.core.content.ContextCompat
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.model.Alamat
 import com.dicoding.tamantic.databinding.ActivityLocationBinding
-import com.dicoding.tamantic.view.activity.alamat.AlamatActivity
+import com.dicoding.tamantic.view.activity.address.AddressActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -56,7 +54,7 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setupAction() {
 
         binding.actionToAlamat.setOnClickListener {
-            val intent = Intent(this, AlamatActivity::class.java)
+            val intent = Intent(this, AddressActivity::class.java)
             startActivity(intent)
             finish()
         }

@@ -1,25 +1,23 @@
 package com.dicoding.tamantic.view.activity.category
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsets
+import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.MarketAdapter
-import com.dicoding.tamantic.databinding.ActivityDetailCategoryIndoorBinding
+import com.dicoding.tamantic.data.model.Plant
+import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.databinding.ActivityDetailCategoryPottedBinding
 import com.dicoding.tamantic.view.activity.cart.CartListActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
@@ -27,13 +25,14 @@ import com.dicoding.tamantic.view.viewModel.CategoryViewModel
 
 class DetailCategoryPottedActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityDetailCategoryPottedBinding
+    private lateinit var binding: ActivityDetailCategoryPottedBinding
     private val categoryViewModel by viewModels<CategoryViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var adapter: MarketAdapter
-    private lateinit var recylerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailCategoryPottedBinding.inflate(layoutInflater)
@@ -46,25 +45,35 @@ class DetailCategoryPottedActivity : AppCompatActivity() {
         }
 
         categoryViewModel.getSession().observe(this) { auth ->
-            auth?.token.let {
-                categoryViewModel.getProduct(auth.token, "Potted")
+            auth?.token?.let {
+                categoryViewModel.getProduct(it, "Potted")
             }
         }
 
         adapter = MarketAdapter(listOf())
+        recyclerView = binding.rvCategoryList
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
-        categoryViewModel.productData.observe(this){
-            adapter.dataProduct = it!!
-            adapter.notifyDataSetChanged()
+        categoryViewModel.productData.observe(this) {
+            it?.let {
+                adapter.dataProduct = it
+                adapter.notifyDataSetChanged()
+                checkProductAvailability(it)
+            }
         }
-
-        recylerView = binding.rvCategoryList
-        recylerView.layoutManager = LinearLayoutManager(this)
-        recylerView.adapter = adapter
 
         setupView()
     }
 
+    private fun checkProductAvailability(products: List<DataItem>) {
+        if (products.isEmpty()) {
+            binding.tvNoProduct.visibility = View.VISIBLE
+        } else {
+            binding.tvNoProduct.visibility = View.GONE
+        }
+        progressBar(false)
+    }
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -90,4 +99,13 @@ class DetailCategoryPottedActivity : AppCompatActivity() {
 
         window.statusBarColor = statusBarColor
     }
+
+    private fun progressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.dicoding.tamantic.view.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -74,10 +75,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun refreshRv() {
         userList.clear()
         userList.addAll(lastMessageMap.values)
         lastChatAdapter.notifyDataSetChanged()
+
 
         if (userList.isEmpty()) {
             binding.tvNoMessage.visibility = View.VISIBLE

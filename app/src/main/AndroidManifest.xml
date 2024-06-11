@@ -28,7 +28,7 @@
             android:name=".view.activity.plant.DetailPlantActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.alamat.AlamatActivity"
+            android:name=".view.activity.address.AddressActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.flowProduct.PackedActivity"

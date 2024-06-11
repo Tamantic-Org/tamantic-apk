@@ -1,54 +1,47 @@
-package com.dicoding.tamantic.view.activity.alamat
+package com.dicoding.tamantic.view.activity.address
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.AddressAdapter
-import com.dicoding.tamantic.data.adapter.LastChatAdapter
 import com.dicoding.tamantic.data.model.Alamat
-import com.dicoding.tamantic.data.model.Chat
-import com.dicoding.tamantic.databinding.ActivityAlamatBinding
+import com.dicoding.tamantic.databinding.ActivityAddressBinding
 import com.dicoding.tamantic.view.activity.maps.LocationActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
-class AlamatActivity : AppCompatActivity() {
+class AddressActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAlamatBinding
-    private lateinit var recylerView: RecyclerView
+    private lateinit var binding: ActivityAddressBinding
+    private lateinit var recyclerView: RecyclerView
     private lateinit var addressAdapter: AddressAdapter
     private var alamatList = mutableListOf<Alamat>()
     private var lastAddressMap = HashMap<String, Alamat>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAlamatBinding.inflate(layoutInflater)
+        binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recylerView = binding.rvAddress
-        recylerView.layoutManager = LinearLayoutManager(this)
+        recyclerView = binding.rvAddress
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         addressAdapter = AddressAdapter(alamatList)
-        recylerView.adapter = addressAdapter
+        recyclerView.adapter = addressAdapter
 
-        getAddress()
+        checkForAddresses()
         setupAction()
         setupView()
-
     }
 
     private fun setupView() {
@@ -74,7 +67,6 @@ class AlamatActivity : AppCompatActivity() {
         }
 
         window.statusBarColor = statusBarColor
-
     }
 
     private fun setupAction() {
@@ -86,46 +78,64 @@ class AlamatActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkForAddresses() {
+        val fromId = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/address/$fromId")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    getAddress()
+                } else {
+                    binding.tvNoAddress.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun refreshRv() {
         alamatList.clear()
-        lastAddressMap.values.forEach {
-            alamatList.add(it)
-            addressAdapter.notifyDataSetChanged()
+        alamatList.addAll(lastAddressMap.values)
+        addressAdapter.notifyDataSetChanged()
+
+        if (alamatList.isEmpty()) {
+            binding.tvNoAddress.visibility = View.VISIBLE
+        } else {
+            binding.tvNoAddress.visibility = View.GONE
         }
     }
 
     private fun getAddress() {
-
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/address/$fromId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val alamat = snapshot.getValue(Alamat::class.java) ?: return
-                lastAddressMap[snapshot.key!!] = alamat
+                val address = snapshot.getValue(Alamat::class.java) ?: return
+                lastAddressMap[snapshot.key!!] = address
                 refreshRv()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val alamat = snapshot.getValue(Alamat::class.java) ?: return
-                lastAddressMap[snapshot.key!!] = alamat
+                val address = snapshot.getValue(Alamat::class.java) ?: return
+                lastAddressMap[snapshot.key!!] = address
                 refreshRv()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                val alamat = snapshot.getValue(Alamat::class.java) ?: return
-                lastAddressMap[snapshot.key!!] = alamat
+                lastAddressMap.remove(snapshot.key)
                 refreshRv()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
-
         })
     }
 }

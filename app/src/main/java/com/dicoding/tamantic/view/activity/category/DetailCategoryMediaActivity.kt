@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.MarketAdapter
+import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.databinding.ActivityDetailCategoryIndoorBinding
 import com.dicoding.tamantic.databinding.ActivityDetailCategoryMediaBinding
 import com.dicoding.tamantic.view.activity.cart.CartListActivity
@@ -52,17 +54,37 @@ class DetailCategoryMediaActivity : AppCompatActivity() {
         }
 
         adapter = MarketAdapter(listOf())
-
-        categoryViewModel.productData.observe(this) {
-            adapter.dataProduct = it!!
-            adapter.notifyDataSetChanged()
-        }
-
         recylerView = binding.rvCategoryList
         recylerView.layoutManager = LinearLayoutManager(this)
         recylerView.adapter = adapter
 
+
+        categoryViewModel.productData.observe(this) {
+            it?.let {
+                adapter.dataProduct = it
+                adapter.notifyDataSetChanged()
+                checkProductAvailability(it)
+            }
+        }
+
         setupView()
+    }
+
+    private fun checkProductAvailability(products: List<DataItem>) {
+        if (products.isEmpty()) {
+            binding.tvNoProduct.visibility = View.VISIBLE
+        } else {
+            binding.tvNoProduct.visibility = View.GONE
+        }
+        progressBar(false)
+    }
+
+    private fun progressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun setupView() {

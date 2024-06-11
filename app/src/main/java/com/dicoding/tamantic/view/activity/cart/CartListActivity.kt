@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ArrayAdapter
@@ -103,6 +104,7 @@ class CartListActivity : AppCompatActivity() {
         })
 
         binding.autoComplete.threshold = 1
+        progressBar(false)
     }
 
     private fun refreshRv() {
@@ -213,4 +215,21 @@ class CartListActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.statusBarColor = Color.TRANSPARENT
     }
+
+    private fun checkProductAvailability(products: MutableList<ProductModel>) {
+        if (products.isEmpty()) {
+            binding.tvNoProduct.visibility = View.VISIBLE
+        } else {
+            binding.tvNoProduct.visibility = View.GONE
+        }
+    }
+
+    private fun progressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
 }

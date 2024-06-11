@@ -23,7 +23,7 @@ import com.dicoding.tamantic.data.model.UserModel
 import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.databinding.FragmentProfileBinding
-import com.dicoding.tamantic.view.activity.alamat.AlamatActivity
+import com.dicoding.tamantic.view.activity.address.AddressActivity
 import com.dicoding.tamantic.view.activity.flowProduct.PackedActivity
 import com.dicoding.tamantic.view.activity.maps.LocationActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
@@ -105,7 +105,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.alamatProfile.setOnClickListener {
-            val intent = Intent(this.context, AlamatActivity::class.java)
+            val intent = Intent(this.context, AddressActivity::class.java)
             startActivity(intent)
         }
 

@@ -1,53 +1,38 @@
 package com.dicoding.tamantic.view.activity.shopping
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.MarketAdapter
-import com.dicoding.tamantic.data.adapter.ProductAdapter
 import com.dicoding.tamantic.data.response.DataItem
-import com.dicoding.tamantic.data.response.ProductsResponse
-import com.dicoding.tamantic.data.retrofit.ApiConfig
-import com.dicoding.tamantic.databinding.ActivityTokoBinding
+import com.dicoding.tamantic.databinding.ActivityShoppingBinding
 import com.dicoding.tamantic.view.activity.cart.CartListActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
-import com.dicoding.tamantic.view.viewModel.CategoryViewModel
-import com.dicoding.tamantic.view.viewModel.HomeViewModel
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.NumberFormat
 import java.util.Locale
 
 class ShoppingActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTokoBinding
+    private lateinit var binding: ActivityShoppingBinding
     private val marketViewModel by viewModels<MarketViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var adapter: MarketAdapter
     private lateinit var recylerView: RecyclerView
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTokoBinding.inflate(layoutInflater)
+        binding = ActivityShoppingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val data = intent.getParcelableExtra<DataItem>("PRODUCT_KEY")
@@ -75,6 +60,7 @@ class ShoppingActivity : AppCompatActivity() {
         setupView()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getProductSelected(data: DataItem?) {
         binding.namaProduct.text = data?.name
         binding.rating.text = data?.rate.toString()
@@ -102,7 +88,6 @@ class ShoppingActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
