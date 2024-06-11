@@ -154,4 +154,5 @@
     <string name="lorem10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="desc_action_save">desc_action_save</string>
     <string name="nama_penyakit">Nama penyakit</string>
+    <string name="no_message">No Message Yet</string>
 </resources>

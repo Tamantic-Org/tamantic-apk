@@ -18,7 +18,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-
+import com.google.firebase.database.ValueEventListener
 
 class ChatFragment : Fragment(R.layout.fragment_chat) {
 
@@ -46,23 +46,47 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         lastChatAdapter = LastChatAdapter(userList)
         recyclerView.adapter = lastChatAdapter
 
-        binding.actionToSelectUser.setOnClickListener{
+        binding.actionToSelectUser.setOnClickListener {
             val intent = Intent(this.context, SelectChatActivity::class.java)
             startActivity(intent)
         }
         progressBar(true)
-        lastMessage()
+        checkForMessages()
     }
 
-    private fun refreshRv(){
+    private fun checkForMessages() {
+        val fromId = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/last-message/$fromId")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    lastMessage()
+                } else {
+                    progressBar(false)
+                    binding.tvNoMessage.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                progressBar(false)
+            }
+        })
+    }
+
+    private fun refreshRv() {
         userList.clear()
-        lastMessageMap.values.forEach{
-            userList.add(it)
-            lastChatAdapter.notifyDataSetChanged()
+        userList.addAll(lastMessageMap.values)
+        lastChatAdapter.notifyDataSetChanged()
+
+        if (userList.isEmpty()) {
+            binding.tvNoMessage.visibility = View.VISIBLE
+        } else {
+            binding.tvNoMessage.visibility = View.GONE
         }
     }
 
-    private fun lastMessage(){
+    private fun lastMessage() {
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/last-message/$fromId")
 
@@ -85,9 +109,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
                 refreshRv()
             }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
-            }
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
             override fun onCancelled(error: DatabaseError) {
                 progressBar(false)

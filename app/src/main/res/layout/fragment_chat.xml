@@ -87,12 +87,23 @@
         android:backgroundTint="@color/green_500"
         />
 
+    <TextView
+        android:id="@+id/tv_no_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:text="@string/no_message"/>
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SpinKitView.ThreeBounce"
-        app:SpinKit_Color="@color/white"
+        app:SpinKit_Color="@color/green_500"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
