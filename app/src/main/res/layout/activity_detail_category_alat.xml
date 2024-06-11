@@ -153,9 +153,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cons_category_1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_list_product_toko"
         />

@@ -78,8 +78,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/action_btn"
-        app:layout_constraintEnd_toEndOf="@id/guideline_right"
-        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -113,8 +113,8 @@
             android:id="@+id/add_adress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tambah Alamat"
-            android:layout_marginEnd="10dp"
+            android:text="@string/tambah_alamat"
+            android:layout_marginEnd="5dp"
             android:backgroundTint="@color/green_500"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
             android:id="@+id/action_to_maps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Maps"
+            android:text="@string/maps"
             android:textColor="@color/green_500"
             android:backgroundTint="@color/orange_700"
             app:layout_constraintTop_toTopOf="parent"

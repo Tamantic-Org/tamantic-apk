@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.AddressAdapter
+import com.dicoding.tamantic.data.adapter.HistoryAdapter
 import com.dicoding.tamantic.data.adapter.PlantAdapter
 import com.dicoding.tamantic.data.model.Alamat
 import com.dicoding.tamantic.data.model.MyPlant
 import com.dicoding.tamantic.databinding.FragmentMyPlantBinding
+import com.dicoding.tamantic.view.activity.history.HistoryActivity
 import com.dicoding.tamantic.view.activity.plant.AddNewPlantActivity
 import com.dicoding.tamantic.view.activity.plant.DetailMyPlantActivity
 import com.dicoding.tamantic.view.utils.getImageUri
@@ -45,20 +47,28 @@ class MyPlantFragment : Fragment(R.layout.fragment_my_plant) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.scanNewPlant.setOnClickListener { camera() }
-
-        binding.consPlant2.setOnClickListener {
-            val intent = Intent(this.context, DetailMyPlantActivity::class.java)
-            startActivity(intent)
-        }
-
         recylerView = binding.rvMyplant
         recylerView.layoutManager = LinearLayoutManager(this.context)
 
         plantAdapter = PlantAdapter(plantList)
         recylerView.adapter = plantAdapter
 
+        setupAction()
         getMyPlant()
+    }
+
+    private fun setupAction() {
+        //        binding.scanNewPlant.setOnClickListener { camera() }
+
+        binding.consPlant2.setOnClickListener {
+            val intent = Intent(this.context, DetailMyPlantActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.history.setOnClickListener {
+            val intent = Intent(this.context, HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun refreshRv() {

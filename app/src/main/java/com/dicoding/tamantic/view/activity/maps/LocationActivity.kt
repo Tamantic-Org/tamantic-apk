@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
@@ -12,6 +13,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -42,8 +45,6 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -55,13 +56,16 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setupAction() {
 
         binding.actionToAlamat.setOnClickListener {
-           onBackPressed()
+            val intent = Intent(this, AlamatActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.btnSaveAddress.setOnClickListener {
             selectedMarker?.let { marker ->
                 val geocoder = Geocoder(this, Locale.getDefault())
-                val addresses = geocoder.getFromLocation(marker.position.latitude, marker.position.longitude, 1)
+                val addresses =
+                    geocoder.getFromLocation(marker.position.latitude, marker.position.longitude, 1)
                 if (addresses != null) {
                     if (addresses.isNotEmpty()) {
                         val address = addresses[0].getAddressLine(0)
@@ -86,14 +90,14 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
             .show()
     }
 
-    private fun addAddress(address: String){
+    private fun addAddress(address: String) {
         val fromId = FirebaseAuth.getInstance().uid.toString()
         val ref = FirebaseDatabase.getInstance().getReference("/address/$fromId/").push()
 
         ref.get().addOnSuccessListener { snapshot ->
             val alamat = Alamat(ref.key!!, address)
             ref.setValue(alamat).addOnSuccessListener {
-                Toast.makeText(this, "Alamat Ditambahkan", Toast.LENGTH_SHORT).show()
+                popupAlertSuccess("Alamat ditambahkan")
             }
         }
     }
@@ -112,7 +116,8 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
         map.setOnMapClickListener { latLng ->
             selectedMarker?.remove()
-            selectedMarker = map.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
+            selectedMarker =
+                map.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
         }
 
@@ -130,22 +135,27 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 map.mapType = GoogleMap.MAP_TYPE_NORMAL
                 true
             }
+
             R.id.satellite_type -> {
                 map.mapType = GoogleMap.MAP_TYPE_SATELLITE
                 true
             }
+
             R.id.terrain_type -> {
                 map.mapType = GoogleMap.MAP_TYPE_TERRAIN
                 true
             }
-           R.id.hybrid_type -> {
+
+            R.id.hybrid_type -> {
                 map.mapType = GoogleMap.MAP_TYPE_HYBRID
                 true
             }
+
             android.R.id.home -> {
                 onBackPressed()
                 true
             }
+
             else -> {
                 super.onOptionsItemSelected(item)
             }
@@ -171,6 +181,43 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
+    }
+
+    private fun popupAlertSuccess(msg: String) {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            dialog.dismiss()
+        }
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+        title.text = "Berhasil"
+        message.text = msg
+    }
+
+    private fun popupAlertFailed(errorMessage: String) {
+        val dialogBinding = layoutInflater.inflate(R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(true)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val message = dialogBinding.findViewById<TextView>(R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
+        title.text = "Gagal"
+        message.text = errorMessage
     }
 
     private fun setupView() {

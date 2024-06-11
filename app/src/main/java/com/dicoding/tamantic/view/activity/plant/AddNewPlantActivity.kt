@@ -67,14 +67,6 @@ class AddNewPlantActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
             }
-
-//            val imageUrl = storageReference.downloadUrl.toString()
-//            val deskripsi = binding.inputDeskripsi.text.toString()
-//
-//            val intent = Intent(this, DetailMyPlantActivity::class.java)
-//            intent.putExtra("IMAGE_PLANT", imageUrl)
-//            intent.putExtra("DESKRIPSI_PLANT", deskripsi)
-//            startActivity(intent)
         }
     }
 
@@ -104,7 +96,6 @@ class AddNewPlantActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
@@ -125,6 +116,6 @@ class AddNewPlantActivity : AppCompatActivity() {
             else -> ContextCompat.getColor(this, R.color.white)
         }
 
-        window.statusBarColor = statusBarColor
+        window.statusBarColor = Color.TRANSPARENT
     }
 }
