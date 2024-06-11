@@ -28,11 +28,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
+                android:paddingHorizontal="20dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/message_chat_detail"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="14:44"
+            android:text="@string/_14_44"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/chat_container_from"
             app:layout_constraintBottom_toBottomOf="@id/chat_container_from" />

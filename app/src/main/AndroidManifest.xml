@@ -19,6 +19,9 @@
         android:theme="@style/Base.Theme.Tamantic"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.history.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.scan.ResultScanActivity"
             android:exported="false" />
         <activity

@@ -88,6 +88,18 @@
         app:layout_constraintTop_toTopOf="@id/guideline_top"
         app:tint="@color/white" />
 
+
+    <ImageView
+        android:id="@+id/action_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/desc_action_save"
+        android:src="@drawable/ic_save"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:tint="@color/white" />
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_penyakit"
         android:layout_width="0dp"
@@ -116,8 +128,8 @@
             style="@style/TEXT_GREEN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Hasil Scan"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/hasil_scan"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +168,6 @@
         <FrameLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-
             android:layout_centerInParent="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/skor_kepercayaan"
@@ -204,7 +215,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_reguler"
-            android:text="Penjelasan"
+            android:text="@string/penjelasan"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -213,6 +224,7 @@
             android:id="@+id/image_explain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/desc_image_explain"
             app:layout_constraintTop_toBottomOf="@id/penjelasan"
             app:layout_constraintStart_toStartOf="parent"
             android:src="@drawable/image_explain"
@@ -227,7 +239,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            android:text="@string/lorem10"
             app:layout_constraintTop_toBottomOf="@id/image_explain"
             app:layout_constraintStart_toEndOf="@id/image_explain"
             />

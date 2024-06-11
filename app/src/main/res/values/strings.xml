@@ -138,4 +138,20 @@
     <string name="alamat_saya">Alamat Saya</string>
     <string name="profile">Profile</string>
     <string name="pilih_pengguna">Pilih pengguna</string>
+    <string name="maps">Maps</string>
+    <string name="tambah_alamat">Tambah Alamat</string>
+    <string name="desc_icon_address">desc_icon_address</string>
+    <string name="alamat">Alamat</string>
+    <string name="desc_delete">desc_delete</string>
+    <string name="pilih_alamat">Pilih Alamat</string>
+    <string name="rp_0_0">Rp.0,0</string>
+    <string name="nama_pengguna">nama pengguna</string>
+    <string name="_14_44">14:44</string>
+    <string name="scan_penyakit">Scan Penyakit</string>
+    <string name="hasil_scan">Hasil Scan</string>
+    <string name="penjelasan">Penjelasan</string>
+    <string name="desc_image_explain">desc_image_explain</string>
+    <string name="lorem10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="desc_action_save">desc_action_save</string>
+    <string name="nama_penyakit">Nama penyakit</string>
 </resources>
