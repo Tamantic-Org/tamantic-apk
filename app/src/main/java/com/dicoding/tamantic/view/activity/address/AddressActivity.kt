@@ -39,7 +39,7 @@ class AddressActivity : AppCompatActivity() {
         addressAdapter = AddressAdapter(alamatList)
         recyclerView.adapter = addressAdapter
 
-        checkForAddresses()
+        getAddress()
         setupAction()
         setupView()
     }
@@ -78,34 +78,12 @@ class AddressActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkForAddresses() {
-        val fromId = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/address/$fromId")
 
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    getAddress()
-                } else {
-                    binding.tvNoAddress.visibility = View.VISIBLE
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     private fun refreshRv() {
         alamatList.clear()
-        alamatList.addAll(lastAddressMap.values)
-        addressAdapter.notifyDataSetChanged()
-
-        if (alamatList.isEmpty()) {
-            binding.tvNoAddress.visibility = View.VISIBLE
-        } else {
-            binding.tvNoAddress.visibility = View.GONE
+        lastAddressMap.values.forEach {
+            alamatList.add(it)
+            addressAdapter.notifyDataSetChanged()
         }
     }
 
@@ -127,7 +105,8 @@ class AddressActivity : AppCompatActivity() {
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                lastAddressMap.remove(snapshot.key)
+                val alamat = snapshot.getValue(Alamat::class.java) ?: return
+                lastAddressMap[snapshot.key!!] = alamat
                 refreshRv()
             }
 
