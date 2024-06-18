@@ -474,18 +474,17 @@
             app:layout_constraintTop_toBottomOf="@id/id_best_product"
             tools:listitem="@layout/item_best_product" />
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            style="@style/SpinKitView.ThreeBounce"
+            app:SpinKit_Color="@color/green_300"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/categories"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="@id/categories"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

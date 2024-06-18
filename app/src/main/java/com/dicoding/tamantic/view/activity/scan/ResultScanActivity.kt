@@ -1,6 +1,5 @@
 package com.dicoding.tamantic.view.activity.scan
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.graphics.Color
@@ -8,30 +7,22 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
-import com.dicoding.tamantic.data.model.Alamat
 import com.dicoding.tamantic.data.model.ScanModel
 import com.dicoding.tamantic.data.response.ScanResponse
 import com.dicoding.tamantic.databinding.ActivityResultScanBinding
 import com.dicoding.tamantic.view.main.MainActivity
-import com.dicoding.tamantic.view.utils.getImageUri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import java.lang.Exception
 import java.util.UUID
 
 class ResultScanActivity : AppCompatActivity() {
@@ -40,7 +31,6 @@ class ResultScanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val image = intent.getStringExtra("IMAGE_SCAN").toString()
         val imageUri = Uri.parse(image)
         val data = intent.getParcelableExtra<ScanResponse>("SCAN_KEY")
@@ -89,13 +79,13 @@ class ResultScanActivity : AppCompatActivity() {
                 else -> {
                     binding.convidenceScore.setTextColor(
                         ContextCompat.getColor(
-                            this, R.color
-                                .green_A700
+                            this, R.color.green_A700
                         )
                     )
                 }
             }
         }
+
         animator.start()
     }
 
@@ -152,7 +142,7 @@ class ResultScanActivity : AppCompatActivity() {
 
         val btn_ok = dialogBinding.findViewById<Button>(R.id.alert_yes)
         btn_ok.setOnClickListener {
-            val intent = Intent (this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

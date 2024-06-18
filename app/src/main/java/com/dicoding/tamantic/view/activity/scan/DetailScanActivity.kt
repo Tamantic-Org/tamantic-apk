@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -65,6 +66,7 @@ class DetailScanActivity : AppCompatActivity() {
         binding.actionToGallery.setOnClickListener { gallery() }
         binding.actionBack.setOnClickListener { onBackPressed() }
         binding.actionScan.setOnClickListener {
+            showLoading(true)
             uploadImage()
         }
     }
@@ -92,6 +94,7 @@ class DetailScanActivity : AppCompatActivity() {
                                 intent.putExtra("IMAGE_SCAN", currentImageUri.toString())
                                 intent.putExtra("SCAN_KEY", data)
                                 startActivity(intent)
+                                showLoading(false)
                             }else{
                                 popupAlertFailed("Gambar tidak boleh kosong!")
                             }
@@ -201,5 +204,13 @@ class DetailScanActivity : AppCompatActivity() {
         val title = dialogBinding.findViewById<TextView>(R.id.alert_title)
         title.text = "Gagal"
         message.text = errorMessage
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

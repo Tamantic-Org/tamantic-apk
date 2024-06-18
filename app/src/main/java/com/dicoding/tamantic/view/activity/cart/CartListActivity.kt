@@ -3,6 +3,7 @@ package com.dicoding.tamantic.view.activity.cart
 import android.R
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +42,6 @@ class CartListActivity : AppCompatActivity() {
     private var totalPrice: Int = 0
 
     private val addresses = ArrayList<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartListBinding.inflate(layoutInflater)
@@ -50,7 +52,7 @@ class CartListActivity : AppCompatActivity() {
         recylerView = binding.rvCartList
         recylerView.layoutManager = LinearLayoutManager(this)
 
-        cartAdapter = CartAdapter(productList)
+        cartAdapter = CartAdapter(this, productList)
         recylerView.adapter = cartAdapter
 
         binding.jumlahPesananCart.text = "${productList.size} Pesanan"
@@ -114,6 +116,7 @@ class CartListActivity : AppCompatActivity() {
             productList.add(it)
             totalPrice += it.total
         }
+
         binding.jumlahPesananCart.text = "${productList.size} Pesanan"
         val formattedTotalPrice =
             NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(totalPrice)
@@ -159,11 +162,9 @@ class CartListActivity : AppCompatActivity() {
             val selectedAddress = binding.autoComplete.text.toString()
 
             if (totalPrice == 0) {
-                Toast.makeText(this, "Keranjang harus Disi terlebih dahulu", Toast.LENGTH_SHORT)
-                    .show()
+                popupAlertFailed("Keranjang harus Disi terlebih dahulu")
             } else if (selectedAddress == "") {
-                Toast.makeText(this, "Silahkan pilih alamat terlebih dahulu", Toast.LENGTH_SHORT)
-                    .show()
+                popupAlertFailed("Silahkan pilih alamat terlebih dahulu")
             } else {
                 val intent = Intent(this, PaymentActivity::class.java)
                 moveToPacked()
@@ -173,6 +174,25 @@ class CartListActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun popupAlertFailed(errorMessage: String) {
+        val dialogBinding = layoutInflater.inflate(com.dicoding.tamantic.R.layout.element_popup_alert, null)
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(dialogBinding)
+        dialog.setCancelable(true)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        val btn_ok = dialogBinding.findViewById<Button>(com.dicoding.tamantic.R.id.alert_yes)
+        btn_ok.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val message = dialogBinding.findViewById<TextView>(com.dicoding.tamantic.R.id.alert_message)
+        val title = dialogBinding.findViewById<TextView>(com.dicoding.tamantic.R.id.alert_title)
+        title.text = "Gagal"
+        message.text = errorMessage
     }
 
     private fun moveToPacked() {

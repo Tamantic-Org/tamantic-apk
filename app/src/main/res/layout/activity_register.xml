@@ -194,7 +194,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0"
-            android:hint="        +62 | ex: 86xxxxxxx"
             app:layout_constraintEnd_toEndOf="@id/const_content"
             app:layout_constraintStart_toStartOf="@id/const_content"
             app:layout_constraintTop_toBottomOf="@id/number_phone"

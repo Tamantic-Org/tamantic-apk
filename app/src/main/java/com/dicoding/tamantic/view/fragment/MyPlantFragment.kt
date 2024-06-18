@@ -44,6 +44,7 @@ class MyPlantFragment : Fragment(R.layout.fragment_my_plant) {
         binding = FragmentMyPlantBinding.inflate(layoutInflater)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -58,7 +59,8 @@ class MyPlantFragment : Fragment(R.layout.fragment_my_plant) {
     }
 
     private fun setupAction() {
-        //        binding.scanNewPlant.setOnClickListener { camera() }
+
+        binding.actionAddPlant.setOnClickListener { camera() }
 
         binding.consPlant2.setOnClickListener {
             val intent = Intent(this.context, DetailMyPlantActivity::class.java)

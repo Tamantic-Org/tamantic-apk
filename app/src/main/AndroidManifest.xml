@@ -19,6 +19,15 @@
         android:theme="@style/Base.Theme.Tamantic"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.bantuan.BantuanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.kebijakan.KebijakanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.tentangkami.TentangKamiActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.history.HistoryActivity"
             android:exported="false" />
         <activity

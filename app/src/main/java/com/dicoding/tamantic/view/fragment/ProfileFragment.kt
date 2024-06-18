@@ -24,8 +24,11 @@ import com.dicoding.tamantic.data.pref.UserPreference
 import com.dicoding.tamantic.data.pref.dataStore
 import com.dicoding.tamantic.databinding.FragmentProfileBinding
 import com.dicoding.tamantic.view.activity.address.AddressActivity
+import com.dicoding.tamantic.view.activity.bantuan.BantuanActivity
 import com.dicoding.tamantic.view.activity.flowProduct.PackedActivity
+import com.dicoding.tamantic.view.activity.kebijakan.KebijakanActivity
 import com.dicoding.tamantic.view.activity.maps.LocationActivity
+import com.dicoding.tamantic.view.activity.tentangkami.TentangKamiActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.starter.login.LoginActivity
 import com.dicoding.tamantic.view.viewModel.ThemeViewModel
@@ -43,7 +46,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
-    private lateinit var binding:  FragmentProfileBinding
+    private lateinit var binding: FragmentProfileBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
 
@@ -94,7 +97,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun setupAction() {
 
-        binding.logoutBtn.setOnClickListener{ popupAlert() }
+        binding.logoutBtn.setOnClickListener { popupAlert() }
 
         binding.locationProfile.setOnClickListener {
             val intent = Intent(this.context, LocationActivity::class.java)
@@ -109,17 +112,34 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             startActivity(intent)
         }
 
-        binding.dikemas.setOnClickListener{
+        binding.dikemas.setOnClickListener {
             val intent = Intent(this.context, PackedActivity::class.java)
             startActivity(intent)
         }
 
+        binding.tentangKami.setOnClickListener {
+            val intent = Intent(this.context, TentangKamiActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.kebijakanPrivasi.setOnClickListener {
+            val intent = Intent(this.context, KebijakanActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.bantuanDanFaq.setOnClickListener {
+            val intent = Intent(this.context, BantuanActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
     @SuppressLint("CheckResult")
-    private fun getProfile(){
+    private fun getProfile() {
         lifecycleScope.launch {
-            val authApi = context?.let { UserPreference.getInstance(it.dataStore).getSession().firstOrNull() }
+            val authApi =
+                context?.let { UserPreference.getInstance(it.dataStore).getSession().firstOrNull() }
             val authToken = authApi?.token
 
             val user = Firebase.auth.currentUser
@@ -142,7 +162,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             } else {
                 val ref = FirebaseDatabase.getInstance().getReference("/users/$id")
-                ref.addListenerForSingleValueEvent(object : ValueEventListener{
+                ref.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val user = snapshot.getValue(UserModel::class.java)
                         user.let {
@@ -210,7 +230,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 startActivity(intent)
                 requireActivity().finish()
             }
-            Log.d("TAG", context?.let { UserPreference.getInstance(it.dataStore).getSession().firstOrNull() }.toString())
+            Log.d("TAG",
+                context?.let { UserPreference.getInstance(it.dataStore).getSession().firstOrNull() }
+                    .toString()
+            )
         }
     }
 

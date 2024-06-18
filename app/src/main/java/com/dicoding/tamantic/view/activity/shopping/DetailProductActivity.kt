@@ -25,10 +25,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.alpha
 import androidx.core.view.marginBottom
 import androidx.core.view.marginEnd
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
+import com.dicoding.tamantic.data.adapter.ImagePagerAdapter
 import com.dicoding.tamantic.data.adapter.MarketAdapter
 import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.ProductModel
@@ -47,6 +50,7 @@ import java.util.Locale
 class DetailProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailProductBinding
+    private lateinit var viewPagerProdImg: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,24 @@ class DetailProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data = intent.getParcelableExtra<DataItem>("PRODUCT_KEY")
+
+        viewPagerProdImg = findViewById(R.id.other_image)
+
+        val imageUrls = listOf(
+            "https://www.ruparupa.com/blog/wp-content/uploads/2022/02/macam-macam-tanaman-hias-1.jpg",
+            "https://res.cloudinary.com/ruparupa-com/image/upload/w_400,h_400/f_auto,q_auto:eco/v1645765851/Products/10463239_1.jpg",
+            "https://res.cloudinary.com/ruparupa-com/image/upload/l_2.1:c5f05d:8cb583/w_738,h_738/f_auto,q_auto:eco/v1660112456/Products/10463239_3.jpg"
+        )
+
+        val adapter = ImagePagerAdapter(imageUrls)
+        viewPagerProdImg.adapter = adapter
+
+        viewPagerProdImg.setPageTransformer { page, position ->
+            val scaleFactor = 0.8f + (1 - Math.abs(position)) * 0.2f
+            page.scaleY = scaleFactor
+        }
+
+        viewPagerProdImg.offscreenPageLimit = 2
 
         getProductSelected(data)
         setCategoryProduct(data)
@@ -71,15 +93,15 @@ class DetailProductActivity : AppCompatActivity() {
             for (category in categories) {
                 val categoryButton = AppCompatButton(this).apply {
                     text = category
-                    setTextColor(ContextCompat.getColor(context, R.color.black))
+                    setTextColor(ContextCompat.getColor(context, R.color.white))
                     background =
-                        ContextCompat.getDrawable(context, R.drawable.background_rounded_button)
-                    textSize = 11f
+                        ContextCompat.getDrawable(context, R.color.black_main)
+                    textSize = 8f
                     typeface = ResourcesCompat.getFont(context, R.font.poppins_medium)
                     isAllCaps = false
                     layoutParams = LinearLayout.LayoutParams(
-                        dpToPx(60),
-                        dpToPx(50)
+                        dpToPx(50),
+                        dpToPx(30)
                     ).apply {
                         marginEnd = 8
                     }
@@ -146,7 +168,6 @@ class DetailProductActivity : AppCompatActivity() {
                 val currentProduct = snapshot.getValue(ProductModel::class.java)
 
                 if (currentProduct?.name == name) {
-                    Toast.makeText(this, "Produk sudah ada di keranjang", Toast.LENGTH_SHORT).show()
                     return@addOnSuccessListener
                 }
 
@@ -158,7 +179,6 @@ class DetailProductActivity : AppCompatActivity() {
             val product = ProductModel(ref.key!!, name, desc, owner, image, status, quantity, price, total)
             ref.setValue(product).addOnSuccessListener {
                 popupAlertSuccess("Berhasil ditambahkan ke keranjang")
-                Toast.makeText(this, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show()
             }
 
         }
