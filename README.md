@@ -88,4 +88,3 @@
 | `androidx.datastore:datastore-preferences` | `1.0.0` | DataStore Preferences | [datastore-preferences](https://developer.android.com/jetpack/androidx/releases/datastore) |
 | `com.midtrans:uikit` | `2.0.0-SANDBOX` | Midtrans payment UI Kit (Sandbox) | [midtrans-uikit-sandbox](https://github.com/veritrans/Veritrans-sdk-android) |
 | `com.midtrans:uikit` | `2.0.0` | Midtrans payment UI Kit | [midtrans-uikit](https://github.com/veritrans/Veritrans-sdk-android) |
-```
