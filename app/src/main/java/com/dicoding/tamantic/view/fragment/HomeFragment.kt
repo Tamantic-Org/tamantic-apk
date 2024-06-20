@@ -1,5 +1,6 @@
 package com.dicoding.tamantic.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +15,11 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.ProductAdapter
+import com.dicoding.tamantic.data.adapter.RecomendedAdapter
 import com.dicoding.tamantic.databinding.FragmentHomeBinding
 import com.dicoding.tamantic.view.activity.cart.CartListActivity
 import com.dicoding.tamantic.view.activity.category.DetailCategoryAlatActivity
@@ -36,7 +39,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: ProductAdapter
+    private lateinit var adapterRecomended: RecomendedAdapter
     private lateinit var recylerView: RecyclerView
+    private lateinit var recylerViewRecomended:  RecyclerView
 
     private val homeViewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(requireContext())
@@ -48,6 +53,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        val sharedPreferences = requireActivity().getSharedPreferences("MY_PREFS", Context.MODE_PRIVATE)
+        val productName = sharedPreferences.getString("product_name", null)
+
+        homeViewModel.getRecomended(productName)
+
         return binding.root
     }
 
@@ -61,6 +72,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         adapter = ProductAdapter(listOf())
+        adapterRecomended = RecomendedAdapter(listOf())
 
         homeViewModel.productData.observe(requireActivity()){
             adapter.dataProduct = it!!
@@ -68,13 +80,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             showLoading(false)
         }
 
+        homeViewModel.recomendedData.observe(viewLifecycleOwner) { recomendedData ->
+            recomendedData?.let {
+                adapterRecomended.recomendedProduct = it
+                adapterRecomended.notifyDataSetChanged()
+            }
+        }
+
         recylerView = binding.rvBestProduct
+        recylerViewRecomended = binding.rvRecomended.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 
         recylerView.layoutManager = layoutManager
         recylerView.adapter = adapter
 
+        recylerViewRecomended.adapter = adapterRecomended
+
         setupAction()
+
+
 
         binding.actionSearch.setOnEditorActionListener { v , actionId , event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH ||

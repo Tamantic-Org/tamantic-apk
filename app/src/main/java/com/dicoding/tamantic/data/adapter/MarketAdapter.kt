@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.response.DataItem
-import com.dicoding.tamantic.view.activity.chatting.ChatlogActivity
 import com.dicoding.tamantic.view.activity.shopping.DetailProductActivity
-import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import java.text.NumberFormat
 import java.util.Locale
 

@@ -16,6 +16,7 @@ import com.dicoding.tamantic.data.adapter.MarketAdapter
 import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.databinding.ActivityShoppingBinding
 import com.dicoding.tamantic.view.activity.cart.CartListActivity
+import com.dicoding.tamantic.view.main.MainActivity
 import com.dicoding.tamantic.view.starter.ViewModelFactory
 import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import java.text.NumberFormat
@@ -73,7 +74,11 @@ class ShoppingActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.actionBack.setOnClickListener { onBackPressed() }
+        binding.actionBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.actionToCart.setOnClickListener {
             val intent = Intent(this, CartListActivity::class.java)

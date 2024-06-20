@@ -92,7 +92,6 @@
             android:text="@string/slogan"
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/action_search"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
             app:layout_constraintTop_toBottomOf="@id/title_home" />
@@ -111,15 +110,15 @@
             android:elevation="5dp"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/cari_tanaman"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingStart="20dp"
             android:singleLine="true"
             android:textSize="16sp"
-            android:imeOptions="actionSearch"
-            app:layout_constraintBottom_toTopOf="@id/categories"
+
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/guideline_slogan"
+            app:layout_constraintTop_toBottomOf="@id/slogan"
             tools:ignore="RtlSymmetry" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +126,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_center"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
             app:layout_constraintTop_toBottomOf="@id/action_search">
@@ -453,21 +451,57 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recomendation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categories">
+
+            <TextView
+                android:id="@+id/id_rekomendasi_kamu"
+                style="@style/TEXT_GREEN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Rekomendasi untuk kamu"
+                android:textSize="16sp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recomended"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/green_100"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@id/id_rekomendasi_kamu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/id_best_product"
             style="@style/TEXT_GREEN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/best_product"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:layout_marginVertical="10dp"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/categories" />
+            app:layout_constraintTop_toBottomOf="@id/recomendation" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bestProduct"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -476,15 +510,15 @@
 
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/progress_bar"
+            style="@style/SpinKitView.ThreeBounce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SpinKitView.ThreeBounce"
-            app:SpinKit_Color="@color/green_300"
             android:visibility="visible"
+            app:SpinKit_Color="@color/green_300"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/categories"/>
+            app:layout_constraintTop_toBottomOf="@id/categories"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

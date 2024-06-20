@@ -2,6 +2,7 @@ package com.dicoding.tamantic.data.retrofit
 
 import com.dicoding.tamantic.data.response.LoginResponse
 import com.dicoding.tamantic.data.response.ProductsResponse
+import com.dicoding.tamantic.data.response.RecomendedResponse
 import com.dicoding.tamantic.data.response.RegisterResponse
 import com.dicoding.tamantic.data.response.ScanResponse
 import com.dicoding.tamantic.data.response.UserResponse
@@ -53,6 +54,12 @@ interface ApiService {
     fun getUser(
         @Path("name") owner: String
     ): Call<ProductsResponse>
+    @GET("/products/search/{name}")
+    fun getRecomended(
+        @Path("name") owner: String
+    ): Call<RecomendedResponse>
+
+
 
     @Multipart
     @POST("/predict")

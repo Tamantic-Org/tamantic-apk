@@ -1,6 +1,7 @@
 package com.dicoding.tamantic.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -222,6 +223,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun logout() {
+        val sharedPreferences = requireActivity().getSharedPreferences("MY_PREFS", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("product_name")
+        editor.apply()
+
         lifecycleScope.launch {
             mAuth.signOut()
             context?.let { UserPreference.getInstance(it.dataStore).logout() }

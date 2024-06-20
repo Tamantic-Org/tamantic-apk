@@ -6,47 +6,27 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatButton
-import androidx.compose.ui.res.fontResource
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.alpha
-import androidx.core.view.marginBottom
-import androidx.core.view.marginEnd
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.adapter.ImagePagerAdapter
-import com.dicoding.tamantic.data.adapter.MarketAdapter
-import com.dicoding.tamantic.data.model.Chat
 import com.dicoding.tamantic.data.model.ProductModel
 import com.dicoding.tamantic.data.response.DataItem
-import com.dicoding.tamantic.data.response.DataItemUser
 import com.dicoding.tamantic.databinding.ActivityDetailProductBinding
 import com.dicoding.tamantic.view.activity.chatting.ChatlogActivity
-import com.dicoding.tamantic.view.main.MainActivity
-import com.dicoding.tamantic.view.starter.ViewModelFactory
-import com.dicoding.tamantic.view.viewModel.MarketViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.NumberFormat
 import java.util.Locale
-
 class DetailProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailProductBinding
@@ -133,6 +113,10 @@ class DetailProductActivity : AppCompatActivity() {
 
         tvLocation.text = location
         tvDesc.text = desc
+        val sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("product_name", name)
+        editor.apply()
     }
 
     private fun setupAction(data: DataItem?) {
@@ -142,7 +126,7 @@ class DetailProductActivity : AppCompatActivity() {
 
             val name = data?.owner
             val image = data?.imageMarket
-            val intent = Intent(this,ChatlogActivity::class.java)
+            val intent = Intent(this, ChatlogActivity::class.java)
             intent.putExtra("OWNER_NAME", name)
             intent.putExtra("OWNER_IMAGE", image)
             startActivity(intent)
@@ -176,7 +160,8 @@ class DetailProductActivity : AppCompatActivity() {
                 total = quantity * price
             }
 
-            val product = ProductModel(ref.key!!, name, desc, owner, image, status, quantity, price, total)
+            val product =
+                ProductModel(ref.key!!, name, desc, owner, image, status, quantity, price, total)
             ref.setValue(product).addOnSuccessListener {
                 popupAlertSuccess("Berhasil ditambahkan ke keranjang")
             }
