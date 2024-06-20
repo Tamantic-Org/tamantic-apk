@@ -5,8 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -44,9 +48,6 @@
             android:exported="false" />
         <activity
             android:name=".view.activity.search.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.activity.search.SeacrhActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.payment.PaymentActivity"
@@ -130,9 +131,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"/>
+
+
+        <receiver android:name=".data.reminder.WaterReminderWorker" android:exported="false"/>
+
     </application>
 
 </manifest>

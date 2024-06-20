@@ -98,14 +98,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             style="@style/TEXT"
             android:id="@+id/desc_plant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_reguler"
-            android:text="@string/tumbuhan_yang_berasal_dari_amerika_tengah_nama_plumeria_diberikan_untuk_menghormati_charles_plumier_1646_1706_pakar_botani_asal_prancis"
             android:textSize="14sp"
+            android:text="@string/desc_my_lant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nama_plant" />

@@ -1,31 +1,28 @@
 package com.dicoding.tamantic.view.activity.plant
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
 import com.dicoding.tamantic.data.model.MyPlant
 import com.dicoding.tamantic.databinding.ActivityDetailMyPlantBinding
-import com.dicoding.tamantic.databinding.ActivityDetailScanBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class DetailMyPlantActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailMyPlantBinding
+    private lateinit var alarm: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailMyPlantBinding.inflate(layoutInflater)
@@ -42,6 +39,7 @@ class DetailMyPlantActivity : AppCompatActivity() {
         setupAction(image, deskripsi)
         setupView()
     }
+
 
     private fun setupAction(image: String, deskripsi: String) {
         binding.actionAddMyPlant.setOnClickListener {
@@ -61,6 +59,7 @@ class DetailMyPlantActivity : AppCompatActivity() {
     }
 
     private fun setPlan(image: String, deskripsi: String) {
+//        binding.namaPlant.text = "Kamboja"
         binding.descPlant.text = deskripsi
         Glide.with(binding.imageDetailMyplant).load(image).into(binding.imageDetailMyplant)
     }
