@@ -8,7 +8,10 @@ import com.google.gson.annotations.SerializedName
 data class ProductsResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataItem?>? = null
+	val data: List<DataItem?>? = null,
+
+	@field:SerializedName("recommendation")
+	val recommendation: List<DataItem?>? = null
 
 ) : Parcelable
 

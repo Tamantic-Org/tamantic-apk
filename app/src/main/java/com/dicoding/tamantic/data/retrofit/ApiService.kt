@@ -2,10 +2,8 @@ package com.dicoding.tamantic.data.retrofit
 
 import com.dicoding.tamantic.data.response.LoginResponse
 import com.dicoding.tamantic.data.response.ProductsResponse
-import com.dicoding.tamantic.data.response.RecomendedResponse
 import com.dicoding.tamantic.data.response.RegisterResponse
 import com.dicoding.tamantic.data.response.ScanResponse
-import com.dicoding.tamantic.data.response.UserResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
@@ -16,7 +14,6 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
-import java.io.File
 
 interface ApiService {
 
@@ -57,7 +54,7 @@ interface ApiService {
     @GET("/products/search/{name}")
     fun getRecomended(
         @Path("name") owner: String
-    ): Call<RecomendedResponse>
+    ): Call<ProductsResponse>
 
 
 

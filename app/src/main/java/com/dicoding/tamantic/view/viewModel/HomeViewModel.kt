@@ -1,6 +1,5 @@
 package com.dicoding.tamantic.view.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,10 +8,7 @@ import com.dicoding.tamantic.data.model.UserModel
 import com.dicoding.tamantic.data.repo.UserRepository
 import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.data.response.ProductsResponse
-import com.dicoding.tamantic.data.response.RecomendedResponse
-import com.dicoding.tamantic.data.response.RecommendationItem
 import com.dicoding.tamantic.data.retrofit.ApiConfig
-import com.google.android.play.integrity.internal.q
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +20,8 @@ class HomeViewModel(
     private val _productData = MutableLiveData<List<DataItem>?>()
     val productData: MutableLiveData<List<DataItem>?> = _productData
 
-    private val _recomendedData = MutableLiveData<List<RecommendationItem>?>()
-    val recomendedData: MutableLiveData<List<RecommendationItem>?> = _recomendedData
+    private val _recomendedData = MutableLiveData<List<DataItem>?>()
+    val recomendedData: MutableLiveData<List<DataItem>?> = _recomendedData
 
     fun getProduct(token: String) {
         ApiConfig.getApiService(token).getProducts().enqueue(object :
@@ -57,28 +53,24 @@ class HomeViewModel(
 
     fun getRecomended(name: String?) {
         val query = name ?: "melati"
-        ApiConfig.getApiService("").getRecomended(query).enqueue(object :
-            Callback<RecomendedResponse> {
+        ApiConfig.getApiService("").getUser(query).enqueue(object : Callback<ProductsResponse> {
             override fun onResponse(
-                call: Call<RecomendedResponse>,
-                response: Response<RecomendedResponse>
+                call: Call<ProductsResponse>,
+                response: Response<ProductsResponse>
             ) {
                 val responseData = response.body()
                 val recomended = responseData
                 recomended.let {
                     if (it != null) {
-                        _recomendedData.value = it.recommendation as List<RecommendationItem>?
+                        _recomendedData.value = it.recommendation as List<DataItem>?
                     }
                 }
-
             }
 
-            override fun onFailure(call: Call<RecomendedResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ProductsResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
         })
     }
-
-
 }

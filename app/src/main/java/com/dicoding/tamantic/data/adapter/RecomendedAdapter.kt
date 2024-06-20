@@ -11,13 +11,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tamantic.R
-import com.dicoding.tamantic.data.response.RecommendationItem
+import com.dicoding.tamantic.data.response.DataItem
 import com.dicoding.tamantic.view.activity.shopping.DetailProductActivity
-import com.dicoding.tamantic.view.activity.shopping.ShoppingActivity
 import java.text.NumberFormat
 import java.util.Locale
 
-class RecomendedAdapter(var recomendedProduct: List<RecommendationItem>) : RecyclerView
+class RecomendedAdapter(var recomendedProduct: List<DataItem>) : RecyclerView
     .Adapter<RecomendedAdapter
     .MyViewHolder>() {
 
@@ -50,6 +49,12 @@ class RecomendedAdapter(var recomendedProduct: List<RecommendationItem>) : Recyc
 
         val image = Uri.parse(data.image)
         Glide.with(holder.ivImage).load(image).into(holder.ivImage)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailProductActivity::class.java)
+            intent.putExtra("PRODUCT_KEY", data)
+            holder.itemView.context.startActivity(intent)
+        }
 
     }
 
